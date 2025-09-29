@@ -29,4 +29,8 @@ public class LineGraphRenderer : MonoBehaviour
             lineRenderer.SetPosition(i, new Vector3(x, y, 0));
         }
     }
+    public Vector3 GetPoint(int index)
+    {
+        return lineRenderer.GetPosition(index);
+    }
 }

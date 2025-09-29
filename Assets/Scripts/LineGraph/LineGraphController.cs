@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class LineGraphController : MonoBehaviour
 {
-    public LineGraphRenderer _renderer;
-    public float zoom = 1f;
-    public float pan = 0f;
 
-    [Header("Offset")]
-    public float xOffset;
+    public LineGraphRenderer _renderer;
+
+    [Header("Size Camera")]
+    public float heightCamera;
+    public float widthCamera;
 
     [Header("Graph Scaling")]
     public float xSpacing = 0.2f;
@@ -18,7 +18,10 @@ public class LineGraphController : MonoBehaviour
     [Header("Data")]
     public List<DataPoint> data = new List<DataPoint>();
 
-    private float graphLength;
+    [Header("DYNAMIC STATISTICS")]
+    public float graphLength;
+    private float zoom = 1f;
+    private float pan = 0f;
 
     void Start()
     {
@@ -28,7 +31,9 @@ public class LineGraphController : MonoBehaviour
             data.Add(new DataPoint(today.AddDays(i), Mathf.Sin(i * 0.1f) * 50 + 200));
         }
 
-        
+        heightCamera = 2f * Camera.main.orthographicSize;
+        widthCamera = heightCamera * Camera.main.aspect;
+
     }
 
     void Update()
@@ -45,9 +50,21 @@ public class LineGraphController : MonoBehaviour
             pan += Input.GetAxis("Mouse X") * 0.5f;
         }
 
-        float graphLength = (data.Count - 1) * xSpacing * zoom; 
+        graphLength = (data.Count - 1) * xSpacing * zoom;
 
-        pan = Mathf.Clamp(pan, -(graphLength + xOffset), -xOffset);
+        float halfWidthCamera = widthCamera * 0.5f;
+
+        float requiredPanForLeftAlign = -halfWidthCamera / (xSpacing * zoom);
+        float requiredPanForRightAlign = (halfWidthCamera / (xSpacing * zoom)) - (data.Count - 1);
+
+        if (graphLength <= widthCamera)
+        {
+            pan = -halfWidthCamera;
+        }
+        else
+        {
+            pan = Mathf.Clamp(pan, requiredPanForLeftAlign, requiredPanForRightAlign);
+        }
 
         _renderer.DrawGraph(data, zoom, pan, xSpacing, yScale);
     }
