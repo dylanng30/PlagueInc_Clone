@@ -10,19 +10,8 @@ public enum HumanType
 }
 public class LineGraphManager : MonoBehaviour
 {
-    private Dictionary<HumanType, LineGraphController> lineGraphDics = new Dictionary<HumanType, LineGraphController>();
-    [SerializeField] private LineGraphController lineGraph;
-
-    private void Start()
+    public void DrawGraph()
     {
-        RectTransform panel = GetComponent<RectTransform>();
-        foreach (HumanType type in System.Enum.GetValues(typeof(HumanType)))
-        {
-            var graph = Instantiate(lineGraph, this.transform);
-            graph.lineGraphType = type;
-            graph.panel = panel;
-            graph.name = "LineGraph_" + type;
-            lineGraphDics.Add(type, graph);
-        }
+
     }
 }

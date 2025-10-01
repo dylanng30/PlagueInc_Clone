@@ -5,50 +5,55 @@ using UnityEngine;
 public class LineGraphRenderer : MonoBehaviour
 {
     public RectTransform linePrefab;
+    public List<RectTransform> lines = new();
     //public PointLG pointPrefab;
 
     [Header("SETTINGS")]
     [SerializeField] private Vector2 lineOffset;
 
-    void Awake()
-    {
-    }
-
     public void DrawGraph(List<PointLG> data, float zoom, float pan, float xSpacing, float yScale)
     {
-        if (data == null || data.Count == 0)
+        if (data == null || data.Count < 2)
             return;
+
+        EnsureLineCount(data.Count - 1);
 
         for (int i = 0; i < data.Count - 1; i++)
         {
-            RectTransform previous = data[i].GetComponent<RectTransform>();
-            float xPrevious = (i + pan) * xSpacing * zoom;
-            float yPrevious = data[i].value * yScale;
-            previous.anchoredPosition = new Vector2(xPrevious, yPrevious);
+            RectTransform startPoint = data[i].GetComponent<RectTransform>();
+            SetPointPosition(startPoint, i, data[i].value, zoom, pan, xSpacing, yScale);
 
-            RectTransform next = data[i + 1].GetComponent<RectTransform>();
-            float xNext = (i + 1 + pan) * xSpacing * zoom;
-            float yNext = data[i + 1].value * yScale;
-            next.anchoredPosition = new Vector2(xNext, yNext);
+            RectTransform endPoint = data[i + 1].GetComponent<RectTransform>();
+            SetPointPosition(endPoint, i + 1, data[i + 1].value, zoom, pan, xSpacing, yScale);
 
-            Vector2 directionLine = next.anchoredPosition - previous.anchoredPosition;
-
-            RectTransform line = Instantiate(linePrefab, this.transform);
-            line.anchoredPosition = previous.anchoredPosition + lineOffset;
-
-            float length = directionLine.magnitude;
-            line.sizeDelta = new Vector2(length, lineOffset.y / 2);
-            float angle = Mathf.Atan2(directionLine.y, directionLine.x) * Mathf.Rad2Deg;
-            line.localEulerAngles = new Vector3(0, 0 , angle); 
+            UpdateLine(lines[i], startPoint, endPoint);
         }
 
     }
-    private void DrawPoint()
-    {
 
+    private void EnsureLineCount(int requiredCount)
+    {
+        while (lines.Count < requiredCount)
+        {
+            var line = Instantiate(linePrefab, transform);
+            lines.Add(line);
+        }
     }
-    private void DrawLine()
-    {
 
+    private void SetPointPosition(RectTransform point, int index, float value, float zoom, float pan, float xSpacing, float yScale)
+    {
+        float x = (index + pan) * xSpacing * zoom;
+        float y = value * yScale;
+        point.anchoredPosition = new Vector2(x, y);
+    }
+    private void UpdateLine(RectTransform line, RectTransform start, RectTransform end)
+    {
+        Vector2 direction = end.anchoredPosition - start.anchoredPosition;
+        float length = direction.magnitude;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        line.anchoredPosition = start.anchoredPosition + lineOffset;
+        line.sizeDelta = new Vector2(length, line.sizeDelta.y);
+        line.localEulerAngles = new Vector3(0, 0, angle);
     }
 }
