@@ -1,39 +1,48 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Reflection;
 using UnityEngine;
 
 public class LineGraphController : MonoBehaviour
 {
+    [Header("---INJECT---")]
+    public HumanType lineGraphType;
+    public RectTransform panel;
 
+    [Space(10)]
+    [Header("---OTHERS---")]
     public LineGraphRenderer _renderer;
+    public PointLG pointPrefab;
+    public Transform pointManager;
 
-    [Header("Size Camera")]
-    public float heightCamera;
-    public float widthCamera;
+    private float heightPanel => panel.rect.height;
+    private float widthPanel => panel.rect.width;
 
     [Header("Graph Scaling")]
-    public float xSpacing = 0.2f;
-    public float yScale = 0.01f;
+    private float xSpacing = 50f;
+    private float yScale = 10f;
 
     [Header("Data")]
-    public List<DataPoint> data = new List<DataPoint>();
+    public List<PointLG> data = new List<PointLG>();
 
     [Header("DYNAMIC STATISTICS")]
     public float graphLength;
     private float zoom = 1f;
-    private float pan = 0f;
+    public float pan = 0f;
 
     void Start()
     {
         DateTime today = DateTime.Today;
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 21; i++)
         {
-            data.Add(new DataPoint(today.AddDays(i), Mathf.Sin(i * 0.1f) * 50 + 200));
+            PointLG point = Instantiate(pointPrefab, pointManager);
+            point.Time = today.AddDays(i);
+            point.value = (-i * i + 20 * i) * 2;
+            data.Add(point);
         }
 
-        heightCamera = 2f * Camera.main.orthographicSize;
-        widthCamera = heightCamera * Camera.main.aspect;
-
+        //DrawGraph();
     }
 
     void Update()
@@ -52,20 +61,21 @@ public class LineGraphController : MonoBehaviour
 
         graphLength = (data.Count - 1) * xSpacing * zoom;
 
-        float halfWidthCamera = widthCamera * 0.5f;
+        float gap = (graphLength - widthPanel) / (xSpacing * zoom);
 
-        float requiredPanForLeftAlign = -halfWidthCamera / (xSpacing * zoom);
-        float requiredPanForRightAlign = (halfWidthCamera / (xSpacing * zoom)) - (data.Count - 1);
-
-        if (graphLength <= widthCamera)
+        if (graphLength < widthPanel)
         {
-            pan = -halfWidthCamera;
+            pan = 0f;
         }
         else
         {
-            pan = Mathf.Clamp(pan, requiredPanForLeftAlign, requiredPanForRightAlign);
+            pan = Mathf.Clamp(pan, -gap - 0.22f, 0f);
         }
 
+        DrawGraph();
+    }
+    public void DrawGraph()
+    {
         _renderer.DrawGraph(data, zoom, pan, xSpacing, yScale);
     }
 }
