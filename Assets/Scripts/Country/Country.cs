@@ -2,36 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Country : MonoBehaviour
+
+public class Country
 {
-    public string countryName;
+    public string name;
     public long population;
+    public Sprite img;
+
+
+    [Header("Dynamic state")]
     public long infected;
     public long dead;
-    public bool IsBrokenDown => population == 0;
 
-    public Country(string countryName, long population)
+
+    [Header("Connections")]
+    public List<Country> connectedCountries = new List<Country>();
+
+
+    [Header("Modifiers")]
+    public float healthcareLevel = 1f; // 0..1 lower = worse healthcare
+    public float travelOpenness = 1f; // 0..1 lower = closed borders
+
+
+    public Country(string name, long population, Sprite img)
     {
-        this.countryName = countryName;
+        this.name = name;
         this.population = population;
-        this.infected = 0;
-        this.dead = 0;
+        this.img = img;
     }
-    public void AddInfected(long value)
+    public long Susceptible
     {
-        if (infected < value) 
-            return;
+        get
+        {
+            long sus = population - infected - dead;
+            if (sus > 0)
+            {
+                return sus;
+            }
 
-        population -= value;
-        infected += value;
-    }
-
-    public void AddDead(long value)
-    {
-        if (infected < value)
-            return;
-
-        infected -= value; 
-        dead += value;
+            return 0;
+        }
     }
 }

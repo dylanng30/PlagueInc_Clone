@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LineGraphRenderer : MonoBehaviour
 {
-    public RectTransform linePrefab;
-    public List<RectTransform> lines = new();
-    //public PointLG pointPrefab;
+    [Header("VIEWS")]
+    [SerializeField] private TextMeshPro nameGraph;
+
+    public LinePool linePool;
 
     [Header("SETTINGS")]
     [SerializeField] private Vector2 lineOffset;
 
-    public void DrawGraph(List<PointLG> data, float zoom, float pan, float xSpacing, float yScale)
+    public void DrawGraph(List<PointLG> data, HumanType type, float zoom, float pan, float xSpacing, float yScale, bool hideOthers = false)
     {
         if (data == null || data.Count < 2)
             return;
 
-        EnsureLineCount(data.Count - 1);
+        linePool.ReturnAllToPool(type);
 
         for (int i = 0; i < data.Count - 1; i++)
         {
@@ -26,18 +28,10 @@ public class LineGraphRenderer : MonoBehaviour
             RectTransform endPoint = data[i + 1].GetComponent<RectTransform>();
             SetPointPosition(endPoint, i + 1, data[i + 1].value, zoom, pan, xSpacing, yScale);
 
-            UpdateLine(lines[i], startPoint, endPoint);
+            var line = linePool.GetLine(type, this.transform);
+            UpdateLine(line, startPoint, endPoint);
         }
 
-    }
-
-    private void EnsureLineCount(int requiredCount)
-    {
-        while (lines.Count < requiredCount)
-        {
-            var line = Instantiate(linePrefab, transform);
-            lines.Add(line);
-        }
     }
 
     private void SetPointPosition(RectTransform point, int index, float value, float zoom, float pan, float xSpacing, float yScale)
