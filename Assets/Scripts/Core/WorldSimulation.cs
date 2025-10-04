@@ -7,22 +7,25 @@ public class WorldSimulation : MonoBehaviour
     public DiseaseInstance disease;
     private List<Country> countries = new List<Country>();
 
+    public DiseaseSO _diseaseData;
     public int day = 0;
+    private Dictionary<int, int> date_deaths = new Dictionary<int, int>();
 
     public void RegisterCountry(List<Country> allCountries)
     {
         this.countries = allCountries;
-        disease = new DiseaseInstance("COVID");
+        disease = new DiseaseInstance("COVID", _diseaseData);
+        date_deaths.Add(disease._diseaseDuration, 1);
     }
 
     public void TickDay()
     {
         day++;
-        SimulateWithinCountryInfections();
+        SimulateWithinCountry();
     }
 
     //Mô phỏng lây nhiễm trong nước
-    private void SimulateWithinCountryInfections()
+    private void SimulateWithinCountry()
     {
         if (disease == null)
         {
@@ -34,11 +37,11 @@ public class WorldSimulation : MonoBehaviour
             return;
         }
 
-        var infections = new Dictionary<Country, (int newInfections, int newDeaths)>();
         foreach (var country in countries)
         {
-            InfectionManager.SimulateWithinCountryInfections(country, disease, out int newInfections, out int newDeaths);
-            infections[country] = (newInfections, newDeaths);
+            InfectionManager.SimulateWithinCountryInfections(country, disease, out int newInfections);
+            InfectionManager.DetermineDateOfDeath(country, disease, day, newInfections, date_deaths);
+            InfectionManager.SimualateWithinCountryDeaths(country, day, date_deaths);
         }
     }
 

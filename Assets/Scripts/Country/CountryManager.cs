@@ -44,7 +44,7 @@ public class CountryManager : Singleton<CountryManager>
             if(data == _chosenCountrySO)
             {
                 model.infected++;
-                model.population--;
+                model.normal--;
             }
 
             var view = Instantiate(countryPrefab, container);

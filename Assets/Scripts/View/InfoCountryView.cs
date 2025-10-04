@@ -37,7 +37,7 @@ public class InfoCountryView : MonoBehaviour
         if(country == null)
             return;
 
-        normalBlock.numberText.text = FormatNumber(country.population);
+        normalBlock.numberText.text = FormatNumber(country.normal);
         infectedBlock.numberText.text = FormatNumber(country.infected);
         deadBlock.numberText.text = FormatNumber(country.dead);
     }
