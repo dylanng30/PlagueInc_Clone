@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DiseaseTest
   m_EditorClassIdentifier: 
   DiseaseType: 0
-  minDays: 1
-  maxDays: 3
+  minDays: 2
+  maxDays: 4
