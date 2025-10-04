@@ -10,6 +10,7 @@ public class Country
 
 
     [Header("Dynamic state")]
+    public long normal;
     public long infected;
     public long dead;
 
@@ -18,27 +19,16 @@ public class Country
     public List<Country> connectedCountries = new List<Country>();
 
     [Header("Modifiers")]
-    public float healthcareLevel = 0.1f;
-    public float travelOpenness = 0.1f;
+    public float healthcareLevel = 0.3f;
+    public float travelOpenness = 0.3f;
 
 
     public Country(string name, long population, Sprite img)
     {
         this.name = name;
         this.population = population;
+        this.normal = population;
         this.img = img;
     }
-    public long Susceptible
-    {
-        get
-        {
-            long sus = population - infected - dead;
-            if (sus > 0)
-            {
-                return sus;
-            }
-
-            return 0;
-        }
-    }
+    public long Susceptible => (long) Mathf.Max(0, normal);
 }
