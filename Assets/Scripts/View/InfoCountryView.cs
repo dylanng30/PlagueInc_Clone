@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 public class InfoCountryView : MonoBehaviour
 {
     [SerializeField] private Animator animator;
@@ -21,19 +21,15 @@ public class InfoCountryView : MonoBehaviour
 
         animator.Play("PopUp");
     }
-    public IEnumerator TurnOff()
+    public void TurnOff()
     {
         if (animator == null)
         {
             Debug.Log("Chưa gán animator");
-            yield break;
+            return;
         }
 
         animator.Play("PopDown");
-
-        float length = animator.GetCurrentAnimatorStateInfo(0).length;
-        yield return new WaitForSeconds(length);
-        gameObject.SetActive(false);
     }
 
     public void UpdateView(Country country)

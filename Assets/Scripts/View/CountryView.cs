@@ -13,6 +13,7 @@ public class CountryView : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private Color highColor;
     [SerializeField] private Color lowColor;
+    [SerializeField] private Color textHighColor;
 
     public void Render(Country country)
     {
@@ -45,7 +46,7 @@ public class CountryView : MonoBehaviour
     public void Highlight()
     {
         countryImg.color = highColor;
-        countryName.color = highColor;
+        countryName.color = textHighColor;
     }
     public void Lowlight()
     {

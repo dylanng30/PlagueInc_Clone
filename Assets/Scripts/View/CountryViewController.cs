@@ -14,6 +14,7 @@ public class CountryViewController : MonoBehaviour
     public float snapSpeed = 10f;
 
     private RectTransform content;
+    private RectTransform currentRect;
 
     private bool isSnapping = true;
     private float threshold = 1f;
@@ -25,7 +26,8 @@ public class CountryViewController : MonoBehaviour
     }
 
     void Update()
-    {
+    {        
+
         if (Input.GetMouseButton(0))
         {
             isSnapping = true;
@@ -33,14 +35,17 @@ public class CountryViewController : MonoBehaviour
 
         if (isSnapping)
         {
-            Debug.Log("SnapToClosestCountry");
+            //Debug.Log("SnapToClosestCountry");
             SnapToClosestCountry();
         }
+
+        UpdateStats(currentRect);
+
+
     }
 
     void SnapToClosestCountry()
     {
-        RectTransform closestCountry= null;
         float closestDistance = Mathf.Infinity;
 
         foreach (RectTransform rect in content)
@@ -53,14 +58,14 @@ public class CountryViewController : MonoBehaviour
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestCountry = rect;
+                currentRect = rect;
             }
         }
 
-        if (closestCountry != null)
+        if (currentRect != null)
         {
-            Hightlight(closestCountry);
-            Vector3 difference = center.position - closestCountry.position;
+            Hightlight(currentRect);
+            Vector3 difference = center.position - currentRect.position;
             content.position = Vector3.Lerp(content.position, content.position + difference, Time.deltaTime * snapSpeed);
 
             if (difference.magnitude < threshold)
@@ -86,6 +91,14 @@ public class CountryViewController : MonoBehaviour
         {
             var controller = CountryManager.Instance.GetController(view);
             controller.Lowlight();
+        }
+    }
+    private void UpdateStats(RectTransform rect)
+    {
+        if (rect.TryGetComponent(out CountryView view))
+        {
+            var controller = CountryManager.Instance.GetController(view);
+            PopUpManager.Instance.UpdateInforCountryView(controller.GetModel());
         }
     }
 }

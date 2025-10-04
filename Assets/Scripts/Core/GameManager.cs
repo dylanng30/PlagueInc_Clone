@@ -2,35 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState
-{   
-    Setup,
-    Playing,
-    Pause,
-}
 public class GameManager : PersistentSingleton<GameManager>
 {    
     public WorldSimulation _worldSimulation;
-    public CountryManager _countryManager;
+    public StateManager _stateManager;
+    public CanvasManager _canvasManager;
+
+    public ChoosingState _chooseState;
+    public MenuState _menuState;
+    public PlayingState _playState;
+
 
     protected override void Awake()
     {
         base.Awake();
-        Initialize();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            _worldSimulation.TickDay();
-        }
+        _chooseState = new ChoosingState(_canvasManager);
+        _menuState = new MenuState(_canvasManager);
+        _playState = new PlayingState(_canvasManager, _worldSimulation);
+        _stateManager.ChangeState(_menuState);
     }
 
-    private void Initialize()
+    public void ChangeState(IState _state)
     {
-        _countryManager.Init();
-        var allCountries = _countryManager.GetAllCountry();
-        _worldSimulation.Init(allCountries);
+        _stateManager.ChangeState(_state);
     }
 }

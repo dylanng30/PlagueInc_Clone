@@ -15,7 +15,7 @@ public class CountryController
 
     public void Highlight()
     {
-        PopUpManager.Instance.UpdateInforCountryView(model);
+        //PopUpManager.Instance.UpdateInforCountryView(model);
         view.AddListener(ShowInfo);
         view.Highlight();
     }

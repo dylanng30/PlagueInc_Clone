@@ -27,8 +27,10 @@ public static class InfectionManager
         float expectedDeaths = country.infected * effectiveLethality;
         newDeaths = Mathf.FloorToInt(expectedDeaths);
 
+        Debug.Log($"So ca mac moi: {newInfections} / So ca chet: {newDeaths}");
 
         // Apply
+        country.population -= newInfections;
         country.infected += newInfections - newDeaths;
         country.dead += newDeaths;
 

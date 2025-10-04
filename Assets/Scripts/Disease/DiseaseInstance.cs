@@ -14,9 +14,9 @@ public class DiseaseInstance
     public DiseaseInstance(string name)
     {
         _name = name;
-        _infectivity = 0f;
-        _lethality = 0f;
-        _severity = 0f;
+        _infectivity = 3f;
+        _lethality = 1f;
+        _severity = 2f;
     }
     public void ApplyTrait(TraitData data)
     {

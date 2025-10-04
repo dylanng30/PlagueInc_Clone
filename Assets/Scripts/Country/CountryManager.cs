@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class CountryManager : Singleton<CountryManager>
 {
-    public List<CountrySO> countryDatas = new List<CountrySO>();
+    private CountrySO _chosenCountrySO;
     private List<CountryController> controllers = new List<CountryController>();
+
+    private List<Country> countries = new List<Country>();
+    public List<Country> Countries => countries;
+
     private Dictionary<CountryView, CountryController> controllerMap = new Dictionary<CountryView, CountryController>();
 
     [SerializeField] private CountryView countryPrefab;
@@ -16,15 +20,33 @@ public class CountryManager : Singleton<CountryManager>
     {
         base.Awake();
     }
-    public void Init()
+
+    public void RegisterCountry(CountrySO chosenCountrySO)
     {
-        Load();
+        _chosenCountrySO = chosenCountrySO;
+        LoadMap();
     }
-    private void Load()
+
+    public void LoadMap()
     {
-        foreach (var data in countryDatas)
+        if (container.childCount > 0)
+        {
+
+            return;
+        }
+
+        List<CountrySO> countrySOs = Systems.Instance.ResourceSystem.CountrySOs;
+        foreach (var data in countrySOs)
         {
             var model = new Country(data.Name, data.Population, data.Img);
+            countries.Add(model);
+
+            if(data == _chosenCountrySO)
+            {
+                model.infected++;
+                model.population--;
+            }
+
             var view = Instantiate(countryPrefab, container);
             var controller = new CountryController(model, view);
             controllers.Add(controller);

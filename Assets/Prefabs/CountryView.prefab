@@ -268,8 +268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750336f0e2a200643af80df16625344a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   countryImg: {fileID: 3720055088771641537}
   countryName: {fileID: 3116081996398027290}
   button: {fileID: 6630791035559210660}
   highColor: {r: 1, g: 1, b: 1, a: 1}
-  lowColor: {r: 0, g: 0, b: 0, a: 1}
+  lowColor: {r: 0, g: 0, b: 0, a: 0.78431374}
+  textHighColor: {r: 0.7411765, g: 0.4862745, b: 0.33333334, a: 1}
