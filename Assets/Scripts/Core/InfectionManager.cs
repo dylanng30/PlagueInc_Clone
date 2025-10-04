@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,10 +64,10 @@ public static class InfectionManager
     {
         newInfections = 0;
 
-        if (country == null || disease == null)
-            return;
-
-        if (country.infected <= 0 || country.normal <= 0)
+        if (country == null ||
+            country.infected <= 0 ||
+            country.normal <= 0 ||
+            disease == null)
             return;
 
         //Cong thuc: newInfections = country.infected * disease._infectivity * (1 - country.healthcareLevel) * contactRate * country.normal / country.population;
@@ -75,6 +75,7 @@ public static class InfectionManager
         float effectiveInfectivity = Mathf.Clamp01(disease._infectivity * (1f - country.healthcareLevel));
         float contactRate = 2f;
         float susceptibleFraction = (float) country.normal / (float) country.population;
+
 
         float expectNewInfections = country.infected * effectiveInfectivity * contactRate * susceptibleFraction;
         newInfections = Mathf.FloorToInt(expectNewInfections);
@@ -88,6 +89,7 @@ public static class InfectionManager
         country.normal -= newInfections;
 
         Debug.Log(newInfections);
+
     }
 
     //public static void SimulateWithinCountryInfections(Country country, DiseaseInstance disease, out int newInfections, out int newDeaths)

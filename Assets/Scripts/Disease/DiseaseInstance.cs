@@ -19,7 +19,6 @@ public class DiseaseInstance
         _type = data.DiseaseType;
         _name = name;
         _diseaseDuration = Random.Range(data.minDays, data.maxDays);
-
         _infectivity = 1f;
         _lethality = 1f;
         _severity = 2f;
