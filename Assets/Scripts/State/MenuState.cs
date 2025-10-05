@@ -11,7 +11,7 @@ public class MenuState : IState
     }
     public void Enter()
     {
-        Debug.Log("PlayingState");
+        //Debug.Log("MenuState");
         _canvasManager.ShowMenuCanvas();
     }
 

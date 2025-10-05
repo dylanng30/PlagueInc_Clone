@@ -6,6 +6,7 @@ using UnityEngine;
 public class CountryManager : Singleton<CountryManager>
 {
     private CountrySO _chosenCountrySO;
+    public Country ChosenCountry;
     private List<CountryController> controllers = new List<CountryController>();
 
     private List<Country> countries = new List<Country>();
@@ -31,11 +32,11 @@ public class CountryManager : Singleton<CountryManager>
     {
         if (container.childCount > 0)
         {
-
             return;
         }
 
         List<CountrySO> countrySOs = Systems.Instance.ResourceSystem.CountrySOs;
+
         foreach (var data in countrySOs)
         {
             var model = new Country(data.Name, data.Population, data.Img);
@@ -43,8 +44,7 @@ public class CountryManager : Singleton<CountryManager>
 
             if(data == _chosenCountrySO)
             {
-                model.infected++;
-                model.normal--;
+                ChosenCountry = model;
             }
 
             var view = Instantiate(countryPrefab, container);
@@ -66,87 +66,4 @@ public class CountryManager : Singleton<CountryManager>
         }
         return countryList;
     }
-
-    //private void RegisterCountry(Country country)
-    //{
-    //    if (countryMap.ContainsKey(country.name))
-    //    {
-    //        Debug.Log($"Đã có nước {country.name}");
-    //        return;
-    //    }
-
-    //    countryMap.Add(country.name, country);
-    //    countries.Add(country);
-    //}
-    //public List<Country> GetAllCountry()
-    //{
-    //    return countries;   
-    //}
-
-    //#region ---TOTAL---
-    //public long GetTotalPopulation()
-    //{
-    //    long total = 0;
-    //    foreach (var country in countryMap.Values)
-    //    {
-    //        total += country.population;
-    //    }
-    //    return total;
-    //}
-
-    //public long GetTotalInfected()
-    //{
-    //    long total = 0;
-    //    foreach (var country in countryMap.Values)
-    //    {
-    //        total += country.infected;
-    //    }
-    //    return total;
-    //}
-
-    //public long GetTotalDead()
-    //{
-    //    long total = 0;
-    //    foreach (var country in countryMap.Values)
-    //    {
-    //        total += country.dead;
-    //    }
-    //    return total;
-    //}
-    //#endregion
-
-    //#region ---SINGLE---
-
-    //public long GetCountryPopulation(string name)
-    //{
-    //    var country = countryMap[name];
-    //    if (country == null)
-    //    {
-    //        Debug.LogError($"Không có nước {name}");
-    //        return 0;
-    //    }
-    //    return country.population;
-    //}
-    //public long GetCountryInfected(string name)
-    //{
-    //    var country = countryMap[name];
-    //    if(country == null)
-    //    {
-    //        Debug.LogError($"Không có nước {name}");
-    //        return 0;
-    //    }
-    //    return country.infected;
-    //}
-    //public long GetCountryDead(string name)
-    //{
-    //    var country = countryMap[name];
-    //    if (country == null)
-    //    {
-    //        Debug.LogError($"Không có nước {name}");
-    //        return 0;
-    //    }
-    //    return country.dead;
-    //}
-
-    //#endregion
 }

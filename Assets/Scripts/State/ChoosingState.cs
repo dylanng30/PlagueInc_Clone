@@ -11,7 +11,7 @@ public class ChoosingState : IState
     }
     public void Enter()
     {
-        Debug.Log("ChoosingState");
+        //Debug.Log("ChoosingState");
         _canvasManager.ShowChooseCanvas();
     }
 

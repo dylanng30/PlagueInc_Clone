@@ -9,24 +9,45 @@ public class WorldSimulation : MonoBehaviour
 
     public DiseaseSO _diseaseData;
     public int day = 0;
-    private Dictionary<int, int> date_deaths = new Dictionary<int, int>();
+    private Dictionary<int,List<(Country, int)>> date_deaths = new Dictionary<int, List<(Country, int)>>();
 
-    public void RegisterCountry(List<Country> allCountries)
+    private void Start()
     {
-        this.countries = allCountries;
+        CreateDisease();
+    }
+    private void CreateDisease()
+    {
         disease = new DiseaseInstance("COVID", _diseaseData);
-        date_deaths.Add(disease._diseaseDuration, 1);
+    }
+    public void RegisterCountries(List<Country> allCountries)
+    {
+        countries = allCountries;
+    }
+    public void RegisterInitialCountry(Country country)
+    {
+        if(!countries.Contains(country)) 
+            return;
+
+        int initialInfections = 1;
+        country.normal -= initialInfections;
+        country.infected += initialInfections;
+
+        //Testing nation
+        //Debug.Log($"GOI LAN {day}------------------------------------------------------");
+        //TestMulti(country);
     }
 
     public void TickDay()
     {
         day++;
+
         SimulateWithinCountry();
     }
 
     //Mô phỏng lây nhiễm trong nước
     private void SimulateWithinCountry()
     {
+        //Debug.Log($"GOI LAN {day}------------------------------------------------------");
         if (disease == null)
         {
             Debug.Log("Khong co mam benh");
@@ -50,4 +71,31 @@ public class WorldSimulation : MonoBehaviour
     {
         //Execute
     }
+
+    #region ---TESTINNG MULTINATION---
+    private void TestMulti(Country country)
+    {
+        foreach (var ct in countries)
+        {
+            if (ct == country)
+            {
+                int initialInfections = 1;
+                ct.normal -= initialInfections;
+                ct.infected += initialInfections;
+
+                InfectionManager.DetermineDateOfDeath(ct, disease, day, initialInfections, date_deaths);
+            }
+            else
+            {
+                int initialInfections = 5;
+                ct.normal -= initialInfections;
+                ct.infected += initialInfections;
+
+                InfectionManager.DetermineDateOfDeath(ct, disease, day, initialInfections, date_deaths);
+            }
+
+            InfectionManager.SimualateWithinCountryDeaths(ct, day, date_deaths);
+        }
+    }
+    #endregion
 }

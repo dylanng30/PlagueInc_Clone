@@ -13,9 +13,10 @@ public class PlayingState : IState
     }
     public void Enter()
     {
-        Debug.Log("PlayingState");
+        //Debug.Log("PlayingState");
         _canvasManager.ShowPlayingCanvas();
-        _worldSimulation.RegisterCountry(CountryManager.Instance.Countries);
+        _worldSimulation.RegisterCountries(CountryManager.Instance.Countries);
+        _worldSimulation.RegisterInitialCountry(CountryManager.Instance.ChosenCountry);
     }
 
     public void Execute()

@@ -40,8 +40,6 @@ public class CountryViewController : MonoBehaviour
         }
 
         UpdateStats(currentRect);
-
-
     }
 
     void SnapToClosestCountry()
