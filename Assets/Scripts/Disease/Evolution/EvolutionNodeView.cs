@@ -14,20 +14,17 @@ public class EvolutionNodeView : MonoBehaviour
     private EvolutionNodeModel model;
     public bool Assigned;
 
-    private void Awake()
-    {
-        LoadButton();
-    }
 
     public bool CanAssign(EvolutionNodeModel model)
     {
         if(model.data != _staticData)
             return false;
 
+        
         this.model = model;
         //nodeName.text = model.data._name;
+        LoadButton();
         Refresh();
-        Assigned = true;
         return true;
     }
 

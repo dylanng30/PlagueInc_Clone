@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
 public class ResourceSystem : MonoBehaviour
 {
     public List<CountrySO> CountrySOs;
+    private List<TraitData> TraitDatas;
 
     private void Awake()
     {
@@ -15,6 +17,15 @@ public class ResourceSystem : MonoBehaviour
     private void LoadCountrySO()
     {
         CountrySOs = Resources.LoadAll<CountrySO>("SO/Country").ToList();
+    }
+    public List<TraitData> GetTraitDatas()
+    {
+        if (TraitDatas == null)
+        {
+            TraitDatas = Resources.LoadAll<TraitData>("SO/Traits").ToList();
+        }
+
+        return TraitDatas;
     }
     //public List<ScriptablePlayer> Players { get; private set; }
     //public List<ScriptableEnemy> Enemies { get; private set; }

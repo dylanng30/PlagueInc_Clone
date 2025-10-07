@@ -8,6 +8,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject _chooseCanvas;
     public GameObject _playingCanvas;
     public PathogenSelectView _pathogenSelectCanvas;
+    public NameDiseaseView _nameDiseaseView;
 
     public void ShowMenuCanvas()
     {
@@ -24,10 +25,23 @@ public class CanvasManager : MonoBehaviour
         HideAll();
         _playingCanvas.SetActive(true);
     }
+    public void ShowPathogenSelectCanvas()
+    {
+        HideAll();
+        _pathogenSelectCanvas.gameObject.SetActive(true);
+    }
+    public void ShowNameDiseaseCanvas()
+    {
+        HideAll();
+        _nameDiseaseView.gameObject.SetActive(true);
+    }
     private void HideAll()
     {
         _menuCanvas.SetActive(false);
         _chooseCanvas.SetActive(false);
         _playingCanvas.SetActive(false);
+
+        _pathogenSelectCanvas.gameObject.SetActive(false);
+        _nameDiseaseView.gameObject.SetActive(false);
     }
 }

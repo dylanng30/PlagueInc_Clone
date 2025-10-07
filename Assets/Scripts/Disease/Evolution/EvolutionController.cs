@@ -7,7 +7,6 @@ public class EvolutionController : Singleton<EvolutionController>
 {
     private DiseaseInstance currentDisease;
     public EvolutionTreeView treeView;
-    public Button[] buttons;
 
     protected override void Awake()
     {

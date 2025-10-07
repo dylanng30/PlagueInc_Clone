@@ -7,14 +7,13 @@ public class WorldSimulation : MonoBehaviour
     public DiseaseInstance disease;
     private List<Country> countries = new List<Country>();
 
-    public DiseaseSO _diseaseData;
     public int day = 0;
     private Dictionary<int,List<(Country, int)>> date_deaths = new Dictionary<int, List<(Country, int)>>();
 
     public List<TraitData> traitDatas = new List<TraitData>();
-    public void CreateDisease()
+    public void CreateDisease(DiseaseData _diseaseData)
     {
-        disease = new DiseaseInstance("COVID", _diseaseData, traitDatas);
+        disease = new DiseaseInstance(_diseaseData.DiseaseName, _diseaseData.Data);
     }
     public void RegisterCountries(List<Country> allCountries)
     {

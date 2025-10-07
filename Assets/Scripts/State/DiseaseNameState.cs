@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuState : IState
+public class DiseaseNameState : IState
 {
-    public CanvasManager _canvasManager;
-    public MenuState(CanvasManager canvasManager)
+    private CanvasManager _canvasManager;
+    public DiseaseNameState(CanvasManager canvasManager)
     {
         _canvasManager = canvasManager;
     }
     public void Enter()
     {
-        //Debug.Log("MenuState");
-        _canvasManager.ShowMenuCanvas();
+        _canvasManager.ShowNameDiseaseCanvas();
     }
 
     public void Execute()
@@ -24,4 +23,5 @@ public class MenuState : IState
     {
 
     }
+
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PauseState : IState
 {
-    public PauseState()
+    private CanvasManager _canvasManager;
+    public PauseState(CanvasManager canvasManager)
     {
-
+        _canvasManager = canvasManager;
     }
     public void Enter()
     {

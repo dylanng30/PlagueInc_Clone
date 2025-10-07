@@ -4,64 +4,59 @@ using UnityEngine;
 
 public enum GameState
 {
-    Menu, CountrySelect, PathogenSelect, Playing, Pause
+    Menu, CountrySelect, PathogenSelect, DiseaseName, Playing, Pause
 }
 public class GameManager : PersistentSingleton<GameManager>
 {    
     public WorldSimulation _worldSimulation;
     public StateManager _stateManager;
     public CanvasManager _canvasManager;
-
-    public CountrySelectState _countrySelectState;
-    public MenuState _menuState;
-    public PlayingState _playState;
-    public PathogenSelectState _pathogenSelectState;
+    public DiseaseData _diseaseData;
+    public DiseaseSO _data;
+    public string _name;
 
     public DiseaseInstance _diseaseInstance;
-    public DiseaseSO _pathogenData;
+
+    private Dictionary<GameState, IState> gameStates;
 
     protected override void Awake()
     {
         base.Awake();
+        _diseaseData = new DiseaseData();
     }
 
     private void Start()
     {
-        _countrySelectState = new CountrySelectState(_canvasManager);
-        _menuState = new MenuState(_canvasManager);
-        _playState = new PlayingState(_canvasManager, _worldSimulation);
-        _pathogenSelectState = new PathogenSelectState(_canvasManager._pathogenSelectCanvas);
-        _stateManager.ChangeState(_menuState);
-    }
-
-    public void ChangeState(IState _state)
-    {
-        _stateManager.ChangeState(_state);
+        LoadGameState();
+        
+        _stateManager.ChangeState(gameStates[GameState.Menu]);
     }
     public void ChangeState(GameState _state)
     {
-        switch (_state)
-        {
-            case GameState.Menu:
-                _stateManager.ChangeState(_menuState);
-                break;
-            case GameState.CountrySelect:
-                _stateManager.ChangeState(_countrySelectState);
-                break;
-            case GameState.PathogenSelect:
-                _stateManager.ChangeState(_pathogenSelectState);
-                break;
-            case GameState.Playing:
-                _stateManager.ChangeState(_playState);
-                break;
-            case GameState.Pause:
-                //_stateManager.ChangeState(_countrySelectState);
-                break;
-        }
+        _stateManager.ChangeState(gameStates[_state]);
     }
 
-    public void RegisterPathogenData(DiseaseSO pathogenData)
+    public void RegisterPathogenData(DiseaseSO data)
     {
-        _pathogenData = pathogenData;
+        _data = data;
+        _diseaseData.Data = data;
+    }
+    public void RegisterNameForDisease(string name)
+    {
+        _name = name;
+        _diseaseData.DiseaseName = name;
+    }
+
+    private void LoadGameState()
+    {
+        gameStates = new Dictionary<GameState, IState>()
+        {
+            { GameState.Menu, new MenuState(_canvasManager) },
+            { GameState.CountrySelect, new CountrySelectState(_canvasManager)},
+            { GameState.PathogenSelect, new PathogenSelectState(_canvasManager)},
+            { GameState.DiseaseName, new DiseaseNameState(_canvasManager)},
+            { GameState.Playing, new PlayingState(_canvasManager, _worldSimulation, _diseaseData)},
+            { GameState.Pause, new PauseState(_canvasManager)}
+        };
     }
 }

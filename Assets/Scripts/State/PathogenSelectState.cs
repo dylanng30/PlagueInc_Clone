@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PathogenSelectState : IState
 {
-    private PathogenSelectView _view;
-    public PathogenSelectState(PathogenSelectView view)
+    private CanvasManager _canvasManager;
+    public PathogenSelectState(CanvasManager canvasManager)
     {
-        _view = view;
+        _canvasManager = canvasManager;
     }
     public void Enter()
     {
-        _view.gameObject.SetActive(true);
+        _canvasManager.ShowPathogenSelectCanvas();
+
+        PathogenSelectView _view = _canvasManager._pathogenSelectCanvas;
         _view.CreateButtons();
     }
 
@@ -22,6 +24,6 @@ public class PathogenSelectState : IState
 
     public void Exit()
     {
-        _view.gameObject.SetActive(false);
+
     }
 }

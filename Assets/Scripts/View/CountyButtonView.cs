@@ -29,7 +29,6 @@ public class CountyButtonView : MonoBehaviour
     private void Choose()
     {
         CountryManager.Instance.RegisterCountry(_data);
-        GameManager.Instance.ChangeState(GameManager.Instance._playState);
-        //Debug.Log($"Choose {_name.text}");
+        GameManager.Instance.ChangeState(GameState.DiseaseName);
     }
 }

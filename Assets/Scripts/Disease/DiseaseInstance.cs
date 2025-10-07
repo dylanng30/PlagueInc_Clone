@@ -19,7 +19,7 @@ public class DiseaseInstance
 
     public EvolutionTreeModel _treeModel;
     
-    public DiseaseInstance(string name, DiseaseSO data, List<TraitData> traitDatas)
+    public DiseaseInstance(string name, DiseaseSO data)
     {
         _type = data.DiseaseType;
         _name = name;
@@ -31,8 +31,12 @@ public class DiseaseInstance
         dnaPoints = 100;
 
         _treeModel = new EvolutionTreeModel();
+
+        List<TraitData> traitDatas = Systems.Instance.ResourceSystem.GetTraitDatas();
         _treeModel.Initialize(traitDatas);
         EvolutionController.Instance.RegisterDisease(this, traitDatas);
+
+        Debug.Log($"{_name} / {data}");
     }
 
     public void ApplyTrait(TraitData data)

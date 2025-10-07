@@ -17,6 +17,6 @@ public class MainMenuView : MonoBehaviour
     }
     public void Play()
     {
-        GameManager.Instance.ChangeState(GameManager.Instance._pathogenSelectState);
+        GameManager.Instance.ChangeState(GameState.PathogenSelect);
     }
 }
