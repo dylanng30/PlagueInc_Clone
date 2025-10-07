@@ -19,7 +19,7 @@ public class SymptomNode : MonoBehaviour
     #region Update
     private void OnMouseDown()
     {
-        SymptomManager.Instance.UnlockSymptomNode(this);
+        //SymptomManager.Instance.UnlockSymptomNode(this);
         Debug.Log("mousedown");
     }
     public void LoadUI()

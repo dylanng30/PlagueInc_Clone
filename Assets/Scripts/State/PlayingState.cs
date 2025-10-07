@@ -15,13 +15,13 @@ public class PlayingState : IState
     {
         //Debug.Log("PlayingState");
         _canvasManager.ShowPlayingCanvas();
+        _worldSimulation.CreateDisease();
         _worldSimulation.RegisterCountries(CountryManager.Instance.Countries);
         _worldSimulation.RegisterInitialCountry(CountryManager.Instance.ChosenCountry);
     }
 
     public void Execute()
     {
-        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _worldSimulation.TickDay();

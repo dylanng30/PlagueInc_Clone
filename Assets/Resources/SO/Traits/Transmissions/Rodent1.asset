@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Rodent1
   m_EditorClassIdentifier: 
   _name: Rodent 1
+  _sprites: []
   _description: Common flea susceptible to infection. Increase infectivity, especially
     in urban regions and mutation
   _traitCategory: 0
+  _isUnlocked: 0
+  _isAvailable: 1
+  childTraits: []
   _infectivityModifier: 0
   _lethalityModifier: 0
   _severityModifier: 0

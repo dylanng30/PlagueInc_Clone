@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: Bird1
   m_EditorClassIdentifier: 
   _name: Bird1
+  _sprites: []
   _description: Birds become susceptible to infection. Avian carriers increase infectivity,
     land transmission and mutation
   _traitCategory: 0
+  _isUnlocked: 0
+  _isAvailable: 1
+  childTraits:
+  - {fileID: 11400000, guid: 28c53ae8adf11e9418f4bd669a5e0b6f, type: 2}
   _infectivityModifier: 0
   _lethalityModifier: 0
   _severityModifier: 0

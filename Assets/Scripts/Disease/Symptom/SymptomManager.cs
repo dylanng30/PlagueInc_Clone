@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SymptomManager : Singleton<SymptomManager>
+public class SymptomManager : MonoBehaviour
 {
     public List<SymptomNode> AvailableSymptomNodes = new List<SymptomNode>();
     public List<SymptomNode> UnlockedSymptomNodes = new List<SymptomNode>();
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
     public void Start()
     {
         foreach(var node in AvailableSymptomNodes)
@@ -52,8 +48,4 @@ public class SymptomManager : Singleton<SymptomManager>
             node.LoadUI();
         }
     }
-
-
-
-     
 }

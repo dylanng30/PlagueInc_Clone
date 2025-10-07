@@ -11,13 +11,10 @@ public class WorldSimulation : MonoBehaviour
     public int day = 0;
     private Dictionary<int,List<(Country, int)>> date_deaths = new Dictionary<int, List<(Country, int)>>();
 
-    private void Start()
+    public List<TraitData> traitDatas = new List<TraitData>();
+    public void CreateDisease()
     {
-        CreateDisease();
-    }
-    private void CreateDisease()
-    {
-        disease = new DiseaseInstance("COVID", _diseaseData);
+        disease = new DiseaseInstance("COVID", _diseaseData, traitDatas);
     }
     public void RegisterCountries(List<Country> allCountries)
     {

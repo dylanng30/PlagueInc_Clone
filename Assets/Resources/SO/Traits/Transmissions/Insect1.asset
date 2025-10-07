@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Insect1
   m_EditorClassIdentifier: 
   _name: Insect 1
+  _sprites: []
   _description: Insects susceptible to infection. Carrier insects increase infectivity,
     especially in hot climates and chance of mutation
   _traitCategory: 0
+  _isUnlocked: 0
+  _isAvailable: 1
+  childTraits: []
   _infectivityModifier: 0
   _lethalityModifier: 0
   _severityModifier: 0

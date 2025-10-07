@@ -7,6 +7,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject _menuCanvas;
     public GameObject _chooseCanvas;
     public GameObject _playingCanvas;
+    public PathogenSelectView _pathogenSelectCanvas;
 
     public void ShowMenuCanvas()
     {

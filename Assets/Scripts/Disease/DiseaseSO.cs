@@ -13,7 +13,9 @@ public enum DiseaseType
 [CreateAssetMenu(fileName = "DiseaseSO")]
 public class DiseaseSO : ScriptableObject
 {
+    public Sprite Avatar;
     public DiseaseType DiseaseType;
     public int minDays;
     public int maxDays;
+    public string Description;
 }

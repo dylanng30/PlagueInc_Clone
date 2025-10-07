@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class DiseaseInstance
 {
     public string _name { get; private set; }
@@ -12,9 +13,13 @@ public class DiseaseInstance
     public float _lethality { get; private set; }
     public float _severity { get; private set; }
 
+    public int dnaPoints;
+
     public List<TraitData> traits = new List<TraitData>();
+
+    public EvolutionTreeModel _treeModel;
     
-    public DiseaseInstance(string name, DiseaseSO data)
+    public DiseaseInstance(string name, DiseaseSO data, List<TraitData> traitDatas)
     {
         _type = data.DiseaseType;
         _name = name;
@@ -22,7 +27,14 @@ public class DiseaseInstance
         _infectivity = 1f;
         _lethality = 1f;
         _severity = 2f;
+
+        dnaPoints = 100;
+
+        _treeModel = new EvolutionTreeModel();
+        _treeModel.Initialize(traitDatas);
+        EvolutionController.Instance.RegisterDisease(this, traitDatas);
     }
+
     public void ApplyTrait(TraitData data)
     {
         traits.Add(data);

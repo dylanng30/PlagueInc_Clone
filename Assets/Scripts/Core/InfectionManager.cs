@@ -28,7 +28,7 @@ public static class InfectionManager
     {
         //Dynamic
         int dynamicInfections = Mathf.FloorToInt(country.healthcareLevel * newInfections);
-       // Debug.Log(dynamicInfections);
+        // Debug.Log(dynamicInfections);
         int dynamicDate = day + disease._diseaseDuration + Random.Range(-1, 2);
 
         AddDeathsToDate(dynamicInfections, dynamicDate, country, date_listDeathsInCountry);

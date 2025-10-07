@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChoosingState : IState
+public class CountrySelectState : IState
 {
     private CanvasManager _canvasManager;
-    public ChoosingState(CanvasManager canvasManager)
+    public CountrySelectState(CanvasManager canvasManager)
     {
         _canvasManager = canvasManager;
     }
