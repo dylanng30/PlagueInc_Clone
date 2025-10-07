@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7bdb981ec22164196e88d090390483, type: 3}
   m_Name: Fungus
   m_EditorClassIdentifier: 
+  Avatar: {fileID: 21300000, guid: b53ed8f64a7f4a141924ff81be3b4a14, type: 3}
   DiseaseType: 3
   minDays: 30
   maxDays: 60
+  Description: 'Disease Progression Time: 30 - 60 days'

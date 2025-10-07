@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7bdb981ec22164196e88d090390483, type: 3}
   m_Name: Parasite
   m_EditorClassIdentifier: 
+  Avatar: {fileID: 21300000, guid: 9c1c7d128e1454642bc570a033a9175e, type: 3}
   DiseaseType: 2
   minDays: 20
   maxDays: 100
+  Description: 'Disease Progression Time: 20 - 100 days'

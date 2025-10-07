@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7bdb981ec22164196e88d090390483, type: 3}
   m_Name: Virus
   m_EditorClassIdentifier: 
+  Avatar: {fileID: 21300000, guid: 3906e5e4e0cef6a46a2c66efafa67468, type: 3}
   DiseaseType: 0
   minDays: 10
   maxDays: 20
+  Description: 'Disease Progression Time: 10 - 20 days'
