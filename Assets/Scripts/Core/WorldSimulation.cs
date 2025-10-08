@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class WorldSimulation : MonoBehaviour
 {
     public DiseaseInstance disease;
-    private List<Country> countries = new List<Country>();
-
     public int day = 0;
     private Dictionary<int,List<(Country, int)>> date_deaths = new Dictionary<int, List<(Country, int)>>();
 
@@ -15,46 +14,38 @@ public class WorldSimulation : MonoBehaviour
     {
         disease = new DiseaseInstance(_diseaseData.DiseaseName, _diseaseData.Data);
     }
-    public void RegisterCountries(List<Country> allCountries)
-    {
-        countries = allCountries;
-    }
     public void RegisterInitialCountry(Country country)
     {
-        if(!countries.Contains(country)) 
+        if(!CountryManager.Instance.AllCountries.Contains(country)) 
             return;
 
         int initialInfections = 1;
         country.normal -= initialInfections;
         country.infected += initialInfections;
-
-        //Testing nation
-        //Debug.Log($"GOI LAN {day}------------------------------------------------------");
-        //TestMulti(country);
     }
 
-    public void TickDay()
+    public void TickDay(TransitController transitController)
     {
         day++;
-
         SimulateWithinCountry();
+        transitController.CreateTransit(CountryManager.Instance.OpenCountries, day);
+        SimulateCrossCountryInfections(transitController.GetTransitModelsWithDay(day));
     }
 
     //Mô phỏng lây nhiễm trong nước
     private void SimulateWithinCountry()
     {
-        //Debug.Log($"GOI LAN {day}------------------------------------------------------");
         if (disease == null)
         {
             Debug.Log("Khong co mam benh");
             return;
         }
-        if (countries.Count == 0)
+        if (CountryManager.Instance.AllCountries.Count == 0)
         {
             return;
         }
 
-        foreach (var country in countries)
+        foreach (var country in CountryManager.Instance.AllCountries)
         {
             InfectionManager.SimulateWithinCountryInfections(country, disease, out int newInfections);
             InfectionManager.DetermineDateOfDeath(country, disease, day, newInfections, date_deaths);
@@ -63,35 +54,16 @@ public class WorldSimulation : MonoBehaviour
     }
 
     //Mô phỏng lây nhiễm giữa các nước
-    private void SimulateCrossCountryInfections()
-    {
-        //Execute
-    }
+     private void SimulateCrossCountryInfections(List<TransitModel> transitModels)
+     {
+        if (transitModels.Count == 0)
+            return;
 
-    #region ---TESTINNG MULTINATION---
-    private void TestMulti(Country country)
-    {
-        foreach (var ct in countries)
+        foreach (var model in transitModels)
         {
-            if (ct == country)
-            {
-                int initialInfections = 1;
-                ct.normal -= initialInfections;
-                ct.infected += initialInfections;
-
-                InfectionManager.DetermineDateOfDeath(ct, disease, day, initialInfections, date_deaths);
-            }
-            else
-            {
-                int initialInfections = 5;
-                ct.normal -= initialInfections;
-                ct.infected += initialInfections;
-
-                InfectionManager.DetermineDateOfDeath(ct, disease, day, initialInfections, date_deaths);
-            }
-
-            InfectionManager.SimualateWithinCountryDeaths(ct, day, date_deaths);
+            InfectionManager.SimulateInfectedTransits(model, out int newInfections, out Country arrivalCountry);
+            Debug.Log($"{model.InfectedPassenger} toi {model.ArrivalCountry}");
+            InfectionManager.DetermineDateOfDeath(arrivalCountry, disease, day, newInfections, date_deaths);
         }
     }
-    #endregion
 }

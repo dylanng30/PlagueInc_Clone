@@ -10,7 +10,8 @@ public class CountryManager : Singleton<CountryManager>
     private List<CountryController> controllers = new List<CountryController>();
 
     private List<Country> countries = new List<Country>();
-    public List<Country> Countries => countries;
+    public List<Country> AllCountries => countries;
+    
 
     private Dictionary<CountryView, CountryController> controllerMap = new Dictionary<CountryView, CountryController>();
 
@@ -21,7 +22,6 @@ public class CountryManager : Singleton<CountryManager>
     {
         base.Awake();
     }
-
     public void RegisterCountry(CountrySO chosenCountrySO)
     {
         _chosenCountrySO = chosenCountrySO;
@@ -65,5 +65,20 @@ public class CountryManager : Singleton<CountryManager>
             countryList.Add(controller.GetModel());
         }
         return countryList;
+    }
+    public List<Country> OpenCountries
+    {
+        get
+        {
+            List<Country> openCountries = new List<Country>();
+
+            foreach (var country in countries)
+            {
+                if (country.normal > country.population * 0.5f)
+                    openCountries.Add(country);
+            }
+
+            return openCountries;
+        }
     }
 }

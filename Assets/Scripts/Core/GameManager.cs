@@ -11,6 +11,9 @@ public class GameManager : PersistentSingleton<GameManager>
     public WorldSimulation _worldSimulation;
     public StateManager _stateManager;
     public CanvasManager _canvasManager;
+    public TransitController _transitController;
+
+
     public DiseaseData _diseaseData;
     public DiseaseSO _data;
     public string _name;
@@ -55,7 +58,7 @@ public class GameManager : PersistentSingleton<GameManager>
             { GameState.CountrySelect, new CountrySelectState(_canvasManager)},
             { GameState.PathogenSelect, new PathogenSelectState(_canvasManager)},
             { GameState.DiseaseName, new DiseaseNameState(_canvasManager)},
-            { GameState.Playing, new PlayingState(_canvasManager, _worldSimulation, _diseaseData)},
+            { GameState.Playing, new PlayingState(_canvasManager, _worldSimulation, _diseaseData, _transitController)},
             { GameState.Pause, new PauseState(_canvasManager)}
         };
     }

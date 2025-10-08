@@ -7,18 +7,25 @@ public class PlayingState : IState
     private CanvasManager _canvasManager;
     private WorldSimulation _worldSimulation;
     private DiseaseData _diseaseData;
-    public PlayingState(CanvasManager canvasManager, WorldSimulation worldSimulation, DiseaseData diseaseData)
+    private TransitController _transitController;
+
+    public PlayingState(
+        CanvasManager canvasManager,
+        WorldSimulation worldSimulation,
+        DiseaseData diseaseData,
+        TransitController transitController
+    )
     {
         _canvasManager = canvasManager;
         _worldSimulation = worldSimulation;
         _diseaseData = diseaseData;
+        _transitController = transitController;
     }
     public void Enter()
     {
         //Debug.Log("PlayingState");
         _canvasManager.ShowPlayingCanvas();
         _worldSimulation.CreateDisease(_diseaseData);
-        _worldSimulation.RegisterCountries(CountryManager.Instance.Countries);
         _worldSimulation.RegisterInitialCountry(CountryManager.Instance.ChosenCountry);
     }
 
@@ -26,7 +33,7 @@ public class PlayingState : IState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _worldSimulation.TickDay();
+            _worldSimulation.TickDay(_transitController);
         }
     }
 

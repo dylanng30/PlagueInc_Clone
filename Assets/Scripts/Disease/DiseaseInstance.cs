@@ -36,7 +36,7 @@ public class DiseaseInstance
         _treeModel.Initialize(traitDatas);
         EvolutionController.Instance.RegisterDisease(this, traitDatas);
 
-        Debug.Log($"{_name} / {data}");
+        //Debug.Log($"{_name} / {data}");
     }
 
     public void ApplyTrait(TraitData data)

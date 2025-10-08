@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class InfectionManager
 {
-    #region ---TESTING---
+    #region ---Single Nation---
     public static void SimualateWithinCountryDeaths(Country country, int day, Dictionary<int, List<(Country, int)>> date_listDeathsInCountry)
     {
         if (!date_listDeathsInCountry.ContainsKey(day))
@@ -55,7 +55,7 @@ public static class InfectionManager
             if (targetCountry == country)
             {
                 date_listDeathsInCountry[date][i] = (targetCountry, currentDeaths + infections);
-                //Debug.Log($"{country.name} xac dinh ngay {date} se co {currentDeaths + infections} ng chet");
+                Debug.Log($"{country.name} xac dinh ngay {date} se co {currentDeaths + infections} ng chet");
                 found = true;
                 break;
             }
@@ -64,11 +64,11 @@ public static class InfectionManager
         if (!found)
         {
             date_listDeathsInCountry[date].Add((country, infections));
-            //Debug.Log($"{country.name} xac dinh ngay {date} se co {infections} ng chet");
+            Debug.Log($"{country.name} xac dinh ngay {date} se co {infections} ng chet");
         }
 
     }
-    #endregion
+    
 
     public static void SimulateWithinCountryInfections(Country country, DiseaseInstance disease, out int newInfections)
     {
@@ -101,60 +101,16 @@ public static class InfectionManager
         //Debug.Log($"{country.name} co them: {newInfections}");
 
     }
+    #endregion
 
-    //Old => Single Country
-    //public static void SimualateWithinCountryDeaths(Country country, int day, Dictionary<int, int> date_deaths)
-    //{
-    //    if (!date_deaths.ContainsKey(day))
-    //    {
-    //        return;
-    //    }
+    #region ---Country to Country---
+    public static void SimulateInfectedTransits(TransitModel model, out int newInfections, out Country arrivalCountry)
+    {
+        newInfections = model.InfectedPassenger;
+        arrivalCountry = model.ArrivalCountry;
 
-    //    int newDeaths = date_deaths[day];
-    //    country.infected -= newDeaths;
-    //    country.dead += newDeaths;
-    //    Debug.Log($"Ngay {day} co {newDeaths} nguoi chet");
-
-    //}
-    //public static void DetermineDateOfDeath(Country country, DiseaseInstance disease, int day, int newInfections, Dictionary<int, int> date_deaths)
-    //{
-    //    //Dynamic
-    //    int dynamicInfections = Mathf.FloorToInt(country.healthcareLevel * newInfections);
-    //    int dynamicDate = day + disease._diseaseDuration + Random.Range(-1, 1);
-
-    //    if (date_deaths.ContainsKey(dynamicDate))
-    //    {
-    //        date_deaths[dynamicDate] += dynamicInfections;
-    //    }
-    //    else
-    //    {
-    //        date_deaths.Add(dynamicDate, dynamicInfections);
-    //    }
-
-    //    //Static
-    //    int staticInfections = newInfections - dynamicInfections;
-    //    int staticDate = day + disease._diseaseDuration;
-    //    if (date_deaths.ContainsKey(staticDate))
-    //    {
-    //        date_deaths[staticDate] += staticInfections;
-    //    }
-    //    else
-    //    {
-    //        date_deaths.Add(staticDate, staticInfections);
-    //    }
-
-    //    //Debug
-    //    if (country.infected == 0)
-    //        return;
-
-    //    if (dynamicDate == staticDate)
-    //    {
-    //        Debug.Log($"So nguoi chet o {country.name} vao ngay {dynamicDate}: {date_deaths[dynamicDate]}");
-    //    }
-    //    else
-    //    {
-    //        Debug.Log($"So nguoi chet o {country.name} vao ngay {dynamicDate}: {date_deaths[dynamicDate]}");
-    //        Debug.Log($"So nguoi chet o {country.name} vao ngay {staticDate}: {date_deaths[staticDate]}");
-    //    }
-    //}
+        arrivalCountry.normal -= newInfections;
+        arrivalCountry.infected += newInfections;
+    }
+    #endregion
 }
