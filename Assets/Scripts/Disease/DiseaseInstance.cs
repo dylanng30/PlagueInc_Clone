@@ -46,5 +46,4 @@ public class DiseaseInstance
         _lethality += data._lethalityModifier;
         _severity += data._severityModifier;
     }
-
 }

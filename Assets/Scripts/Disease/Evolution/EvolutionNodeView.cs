@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class EvolutionNodeView : MonoBehaviour
 {
+    public event Action OnNodeClicked;
+
     public Image icon;
-    //public TMP_Text nodeName;
     [SerializeField] private Button evolveButton;
     [SerializeField] private Color hideColor;
     [SerializeField] private Color lockedColor;
@@ -17,8 +19,9 @@ public class EvolutionNodeView : MonoBehaviour
 
     private void OnEnable()
     {
-        evolveButton.onClick.AddListener(() => Notify());
+        evolveButton.onClick.AddListener(() => OnNodeClicked?.Invoke());
     }
+
     public bool CanAssign(EvolutionNodeModel model)
     {
         if(model.data != _staticData)
@@ -43,11 +46,5 @@ public class EvolutionNodeView : MonoBehaviour
         icon.color = model.isUnlocked ? unlockedColor : lockedColor;
         //icon.sprite = model.isUnlocked ? model.data._sprites[0] : model.data._sprites[1];
 
-    }
-
-    private void Notify()
-    {
-        Debug.Log("OnClick");
-        EvolutionController.Instance.OnNodeClicked(model.data);
     }
 }

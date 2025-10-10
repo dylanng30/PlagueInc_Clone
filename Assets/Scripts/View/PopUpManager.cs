@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class PopUpManager : Singleton<PopUpManager>
 {
+
+    [Header("---NAVIGATION BAR---")]
+    [SerializeField] private GameObject _naviBar;
+
     [Header("---INFORMATION COUNTRY---")]
     [SerializeField] private InfoCountryView _inforCountry;
     [SerializeField] private Button _turnOffButton;
@@ -60,10 +64,12 @@ public class PopUpManager : Singleton<PopUpManager>
     public void ShowTMSPanel()
     {
         tmsPanel.SetActive(true);
+        _naviBar.SetActive(false);
     }
     public void HideTMSPanel()
     {
         tmsPanel.SetActive(false);
+        _naviBar.SetActive(true);
     }
     #endregion
 
@@ -71,10 +77,12 @@ public class PopUpManager : Singleton<PopUpManager>
     public void ShowESPanel()
     {
         esPanel.SetActive(true);
+        _naviBar.SetActive(false);
     }
     public void HideESPanel()
     {
         esPanel.SetActive(false);
+        _naviBar.SetActive(true);
     }
     #endregion
 

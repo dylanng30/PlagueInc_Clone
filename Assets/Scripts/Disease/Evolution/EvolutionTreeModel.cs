@@ -39,4 +39,5 @@ public class EvolutionTreeModel
             nodes[childTrait].isAvailable = true;
         }
     }
+
 }

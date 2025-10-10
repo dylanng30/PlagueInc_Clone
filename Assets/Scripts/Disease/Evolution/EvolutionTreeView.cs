@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public enum ContainerType
 
 public class EvolutionTreeView : MonoBehaviour
 {
+    public event Action<TraitData> OnNodeSelected;
+
     [Header("---BUTTONS---")]
     public Button informationButton;
     public Button transmissionButton;
@@ -50,6 +53,7 @@ public class EvolutionTreeView : MonoBehaviour
                     continue;
 
                 nodeViews[data] = nodeView;
+                nodeView.OnNodeClicked += () => OnNodeSelected?.Invoke(data);
             }            
         }
     }

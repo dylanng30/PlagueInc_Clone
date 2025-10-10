@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EvolutionController : Singleton<EvolutionController>
 {
     private DiseaseInstance currentDisease;
-    public EvolutionTreeView treeView;
+    [SerializeField] private EvolutionTreeView treeView;
+    [SerializeField] private InformationTraitView informationTraitView;
+
+    private TraitData currentSelectedTrait;
 
     protected override void Awake()
     {
@@ -17,20 +18,37 @@ public class EvolutionController : Singleton<EvolutionController>
     {
         currentDisease = disease;
         treeView.CreateTree(traitDatas, disease._treeModel);
+        treeView.OnNodeSelected += HandleNodeSelected;
+        informationTraitView.OnEvolvePressed += HandleEvolvePressed;
     }
 
-    public void OnNodeClicked(TraitData data)
+    private void HandleNodeSelected(TraitData data)
     {
+        currentSelectedTrait = data;
         var model = currentDisease._treeModel.nodes[data];
-
-        if (currentDisease._treeModel.CanEvolve(data, currentDisease.dnaPoints))
-        {
-            currentDisease.dnaPoints -= model.data._dnaCost;
-            currentDisease._treeModel.Evolve(data);
-            currentDisease.ApplyTrait(model.data);
-
-            treeView.RefreshAll();
-        }
+        UpdateInformationTraitView(model);
     }
 
+    private void HandleEvolvePressed()
+    {
+        if (currentSelectedTrait == null)
+            return;
+
+        var model = currentDisease._treeModel.nodes[currentSelectedTrait];
+        if (!currentDisease._treeModel.CanEvolve(currentSelectedTrait, currentDisease.dnaPoints))
+            return;
+
+        currentDisease.dnaPoints -= model.data._dnaCost;
+        currentDisease._treeModel.Evolve(currentSelectedTrait);
+        currentDisease.ApplyTrait(model.data);
+
+        treeView.RefreshAll();
+        UpdateInformationTraitView(model);
+    }
+
+    private void UpdateInformationTraitView(EvolutionNodeModel model)
+    {
+        informationTraitView.UpdateView(model);
+        informationTraitView.TurnOn();
+    }
 }
