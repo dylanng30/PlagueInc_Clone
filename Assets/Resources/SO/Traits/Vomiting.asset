@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f659f332922dfa4c8061a04ad6184d1, type: 3}
+  m_Name: Vomiting
+  m_EditorClassIdentifier: 
+  _name: Vomiting
+  _sprites: []
+  _description: The expultion of infected material through projectile vomiting increases
+    the risk of infection
+  _traitCategory: 1
+  _isUnlocked: 0
+  _isAvailable: 0
+  childTraits:
+  - {fileID: 11400000, guid: 2afaa4497e9ba6e44a366365e7661897, type: 2}
+  - {fileID: 11400000, guid: 497fbf7bf975dc743ac020fbb24ac2f8, type: 2}
+  _infectivityModifier: 2
+  _lethalityModifier: 0
+  _severityModifier: 1
+  _dnaCost: 5

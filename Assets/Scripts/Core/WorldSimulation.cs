@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class WorldSimulation : MonoBehaviour
 {
@@ -20,6 +19,7 @@ public class WorldSimulation : MonoBehaviour
             return;
 
         int initialInfections = 1;
+        InfectionManager.DetermineDateOfDeath(country, disease, day, initialInfections, date_deaths);
         country.normal -= initialInfections;
         country.infected += initialInfections;
     }

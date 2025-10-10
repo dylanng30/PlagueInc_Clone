@@ -12,7 +12,7 @@ public class TransitController : MonoBehaviour
     {
         List<TransitModel> transitModels = new List<TransitModel>();
 
-        int transitCount = Random.Range(2, 5);
+        int transitCount = 7;// Random.Range(2, 5);
 
         for (int i = 0; i < transitCount; i++)
         {

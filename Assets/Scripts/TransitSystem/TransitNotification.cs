@@ -8,7 +8,6 @@ public class TransitNotification : MonoBehaviour
     private List<TransitView> _views = new List<TransitView>();
 
     [SerializeField] private Transform container;
-    [SerializeField] private GameObject panel;
 
     public void Notify(List<TransitModel> transitDatas)
     {
@@ -33,12 +32,5 @@ public class TransitNotification : MonoBehaviour
         }
     }
 
-    public void ShowPanel()
-    {
-        panel.SetActive(true);
-    }
-    public void HidePanel()
-    {
-        panel.SetActive(false);
-    }
+    
 }

@@ -6,15 +6,19 @@ public class EvolutionNodeView : MonoBehaviour
 {
     public Image icon;
     //public TMP_Text nodeName;
-    public Button evolveButton;
+    [SerializeField] private Button evolveButton;
     [SerializeField] private Color hideColor;
-    [SerializeField] private Color showColor;
+    [SerializeField] private Color lockedColor;
+    [SerializeField] private Color unlockedColor;
     [SerializeField] private TraitData _staticData;
 
     private EvolutionNodeModel model;
     public bool Assigned;
 
-
+    private void OnEnable()
+    {
+        evolveButton.onClick.AddListener(() => Notify());
+    }
     public bool CanAssign(EvolutionNodeModel model)
     {
         if(model.data != _staticData)
@@ -23,7 +27,6 @@ public class EvolutionNodeView : MonoBehaviour
         
         this.model = model;
         //nodeName.text = model.data._name;
-        LoadButton();
         Refresh();
         return true;
     }
@@ -37,8 +40,7 @@ public class EvolutionNodeView : MonoBehaviour
             icon.color = hideColor;
             return;
         }
-
-        icon.color = showColor;
+        icon.color = model.isUnlocked ? unlockedColor : lockedColor;
         //icon.sprite = model.isUnlocked ? model.data._sprites[0] : model.data._sprites[1];
 
     }
@@ -47,16 +49,5 @@ public class EvolutionNodeView : MonoBehaviour
     {
         Debug.Log("OnClick");
         EvolutionController.Instance.OnNodeClicked(model.data);
-    }
-
-    private void LoadButton()
-    {
-        if (evolveButton != null)
-        {
-            return;
-        }
-
-        evolveButton = GetComponent<Button>();
-        evolveButton.onClick.AddListener(() => Notify());
     }
 }

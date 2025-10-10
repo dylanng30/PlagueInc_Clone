@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
 public enum ContainerType
 {
     Information,
@@ -14,42 +12,25 @@ public enum ContainerType
 
 public class EvolutionTreeView : MonoBehaviour
 {
-    public Button[] buttons;
+    [Header("---BUTTONS---")]
+    public Button informationButton;
+    public Button transmissionButton;
+    public Button symptomButton;
+    public Button abilityButton;
+
+    [Header("---PANEL---")]
     public Transform informationContainer;
     public Transform transmissionContainer;
     public Transform symptomContainer;
     public Transform abilityContainer;
 
     private Dictionary<TraitData, EvolutionNodeView> nodeViews = new();
+    private Dictionary<ContainerType, Transform> containers;
 
     private void Start()
     {
-        buttons[0].onClick.AddListener(() => ShowContainer(ContainerType.Information));
-        buttons[1].onClick.AddListener(() => ShowContainer(ContainerType.Transmission));
-        buttons[2].onClick.AddListener(() => ShowContainer(ContainerType.Symptom));
-        buttons[3].onClick.AddListener(() => ShowContainer(ContainerType.Ability));
-    }
-    private void ShowContainer(ContainerType type)
-    {
-        informationContainer.gameObject.SetActive(false);
-        transmissionContainer.gameObject.SetActive(false);
-        symptomContainer.gameObject.SetActive(false);
-        abilityContainer.gameObject.SetActive(false);
-        switch (type)
-        {
-            case ContainerType.Information:
-                informationContainer.gameObject.SetActive(true);
-                break;
-            case ContainerType.Transmission:
-                transmissionContainer.gameObject.SetActive(true);
-                break;
-            case ContainerType.Symptom:
-                symptomContainer.gameObject.SetActive(true);
-                break;
-            case ContainerType.Ability:
-                abilityContainer.gameObject.SetActive(true);
-                break;
-        }
+        LoadContainers();
+        SetUpButtons();
     }
 
     public void CreateTree(List<TraitData> nodeDatas, EvolutionTreeModel treeModel)
@@ -88,5 +69,32 @@ public class EvolutionTreeView : MonoBehaviour
     {
         foreach (var node in nodeViews.Values)
             node.Refresh();
+    }
+
+    private void ShowContainer(ContainerType type)
+    {
+        foreach (var container in containers.Values)
+            container.gameObject.SetActive(false);
+
+        if (containers.TryGetValue(type, out var targetContainer))
+            targetContainer.gameObject.SetActive(true);
+    }
+
+    private void LoadContainers()
+    {
+        containers = new Dictionary<ContainerType, Transform>
+        {
+            { ContainerType.Information, informationContainer },
+            { ContainerType.Transmission, transmissionContainer },
+            { ContainerType.Symptom, symptomContainer },
+            { ContainerType.Ability, abilityContainer },
+        };
+    }
+    private void SetUpButtons()
+    {
+        informationButton.onClick.AddListener(() => ShowContainer(ContainerType.Information));
+        transmissionButton.onClick.AddListener(() => ShowContainer(ContainerType.Transmission));
+        symptomButton.onClick.AddListener(() => ShowContainer(ContainerType.Symptom));
+        abilityButton.onClick.AddListener(() => ShowContainer(ContainerType.Ability));
     }
 }

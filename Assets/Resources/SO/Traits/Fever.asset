@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f659f332922dfa4c8061a04ad6184d1, type: 3}
+  m_Name: Fever
+  m_EditorClassIdentifier: 
+  _name: Fever
+  _sprites: []
+  _description: Increase in temperature, contagiousness and severe dehydration, which
+    can be fatal
+  _traitCategory: 1
+  _isUnlocked: 0
+  _isAvailable: 0
+  childTraits:
+  - {fileID: 11400000, guid: 87e2f4f4f6082dd4c96338e3d8144e68, type: 2}
+  _infectivityModifier: 2
+  _lethalityModifier: 0
+  _severityModifier: 1
+  _dnaCost: 15

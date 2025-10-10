@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f659f332922dfa4c8061a04ad6184d1, type: 3}
+  m_Name: Cysts
+  m_EditorClassIdentifier: 
+  _name: Cysts
+  _sprites: []
+  _description: Painful lumps containing pockets of the pathogen. Slight chance of
+    bursting which can spread disease
+  _traitCategory: 1
+  _isUnlocked: 0
+  _isAvailable: 1
+  childTraits:
+  - {fileID: 11400000, guid: e151e57e8fea6e846b2ba2e54592acec, type: 2}
+  - {fileID: 11400000, guid: 4f71c8c4b4f6a2d43beaef437531be33, type: 2}
+  _infectivityModifier: 2
+  _lethalityModifier: 0
+  _severityModifier: 2
+  _dnaCost: 2

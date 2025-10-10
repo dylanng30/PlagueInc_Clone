@@ -26,8 +26,8 @@ public class TransitFactory
             _arrivalCountry = openCountries[_arrivalIndex];
         } while (_arrivalIndex == _departureIndex);
 
-        long _infectedPassenger = Mathf.FloorToInt(_departureCountry.infected * 0.001f);
-        _infectedPassenger = _infectedPassenger < 1 ? 1 : _infectedPassenger;
+        long _infectedPassenger = Mathf.FloorToInt(_departureCountry.infected * 0.0001f);
+        _infectedPassenger = _infectedPassenger < 1 ? 0 : _infectedPassenger;
 
         newTransit = new TransitModel()
         {
