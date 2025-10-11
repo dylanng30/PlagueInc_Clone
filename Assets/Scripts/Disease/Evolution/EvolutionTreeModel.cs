@@ -35,6 +35,9 @@ public class EvolutionTreeModel
 
         foreach (var childTrait in nodeData.childTraits)
         {
+            if(nodes[childTrait].isUnlocked)
+                continue;
+
             nodes[childTrait].isUnlocked = false;
             nodes[childTrait].isAvailable = true;
         }

@@ -28,8 +28,6 @@ public class DiseaseInstance
         _lethality = 1f;
         _severity = 2f;
 
-        dnaPoints = 100;
-
         _treeModel = new EvolutionTreeModel();
 
         List<TraitData> traitDatas = Systems.Instance.ResourceSystem.GetTraitDatas();
@@ -45,5 +43,10 @@ public class DiseaseInstance
         _infectivity += data._infectivityModifier;
         _lethality += data._lethalityModifier;
         _severity += data._severityModifier;
+    }
+    public void ApplyDNA(int value)
+    {
+        dnaPoints += value;
+        ObserverManager.Instance.Notify(EventType.DNAChange, dnaPoints);
     }
 }

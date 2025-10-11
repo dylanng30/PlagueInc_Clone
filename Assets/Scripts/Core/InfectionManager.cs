@@ -4,6 +4,20 @@ using UnityEngine;
 
 public static class InfectionManager
 {
+    #region ---DNA--
+    public static void SimulateDNAGain(DiseaseInstance disease, int newInfections)
+    {
+        int dnaGain = 0;
+
+        dnaGain += Mathf.FloorToInt(newInfections / 1000f);
+        dnaGain = Mathf.Clamp(dnaGain, 0, 1);
+
+        if (dnaGain > 0)
+        {
+            disease.ApplyDNA(dnaGain);
+        }
+    }
+    #endregion
     #region ---Single Nation---
     public static void SimualateWithinCountryDeaths(Country country, int day, Dictionary<int, List<(Country, int)>> date_listDeathsInCountry)
     {

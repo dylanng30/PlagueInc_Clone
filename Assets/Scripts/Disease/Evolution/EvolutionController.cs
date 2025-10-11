@@ -38,7 +38,7 @@ public class EvolutionController : Singleton<EvolutionController>
         if (!currentDisease._treeModel.CanEvolve(currentSelectedTrait, currentDisease.dnaPoints))
             return;
 
-        currentDisease.dnaPoints -= model.data._dnaCost;
+        currentDisease.ApplyDNA(-model.data._dnaCost);
         currentDisease._treeModel.Evolve(currentSelectedTrait);
         currentDisease.ApplyTrait(model.data);
 

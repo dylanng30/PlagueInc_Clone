@@ -15,10 +15,13 @@ public class WorldSimulation : MonoBehaviour
     }
     public void RegisterInitialCountry(Country country)
     {
+        day = 1;
         if(!CountryManager.Instance.AllCountries.Contains(country)) 
             return;
 
         int initialInfections = 1;
+        disease.ApplyDNA(0);
+        ObserverManager.Instance.Notify(EventType.DayChange, day);
         InfectionManager.DetermineDateOfDeath(country, disease, day, initialInfections, date_deaths);
         country.normal -= initialInfections;
         country.infected += initialInfections;
@@ -27,6 +30,7 @@ public class WorldSimulation : MonoBehaviour
     public void TickDay(TransitController transitController)
     {
         day++;
+        ObserverManager.Instance.Notify(EventType.DayChange, day);
         SimulateWithinCountry();
         transitController.CreateTransit(CountryManager.Instance.OpenCountries, day);
         SimulateCrossCountryInfections(transitController.GetTransitModelsWithDay(day));
@@ -47,9 +51,11 @@ public class WorldSimulation : MonoBehaviour
 
         foreach (var country in CountryManager.Instance.AllCountries)
         {
+            
             InfectionManager.SimulateWithinCountryInfections(country, disease, out int newInfections);
             InfectionManager.DetermineDateOfDeath(country, disease, day, newInfections, date_deaths);
             InfectionManager.SimualateWithinCountryDeaths(country, day, date_deaths);
+            InfectionManager.SimulateDNAGain(disease, newInfections);
         }
     }
 
@@ -64,6 +70,7 @@ public class WorldSimulation : MonoBehaviour
             InfectionManager.SimulateInfectedTransits(model, out int newInfections, out Country arrivalCountry);
             Debug.Log($"{model.InfectedPassenger} toi {model.ArrivalCountry}");
             InfectionManager.DetermineDateOfDeath(arrivalCountry, disease, day, newInfections, date_deaths);
+            InfectionManager.SimulateDNAGain(disease, newInfections);
         }
     }
 }
