@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Enums;
 using UnityEngine;
 
 [System.Serializable]
 public class DiseaseInstance
 {
     public string _name { get; private set; }
-    public DiseaseType _type { get; private set; }
+    public PathogenType _type { get; private set; }
     public int _diseaseDuration { get; private set; }
 
     public float _infectivity {  get; private set; }
@@ -23,7 +24,7 @@ public class DiseaseInstance
     public DiseaseInstance(string name, DiseaseSO data)
     {
         //_data = data;
-        _type = data.DiseaseType;
+        _type = data.PathogenType;
         _name = name;
         _diseaseDuration = Random.Range(data.minDays, data.maxDays);
         _infectivity = 1f;

@@ -13,6 +13,8 @@ public class CountrySelectState : IState
     {
         //Debug.Log("ChoosingState");
         _canvasManager.ShowChooseCanvas();
+        ChooseCountryView _view = _canvasManager.ChooseCountryCanvas;
+        _view.CreateCountryButtons();
     }
 
     public void Execute()

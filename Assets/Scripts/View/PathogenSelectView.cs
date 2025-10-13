@@ -1,29 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Presentation;
 using UnityEngine;
 
 public class PathogenSelectView : MonoBehaviour
 {
-    public List<DiseaseSO> diseaseSOs = new List<DiseaseSO>();
-    [SerializeField] private PathogenDataHolder _holderPrefab;
+    [SerializeField] private PathogenDataHolder _prefab;
     [SerializeField] private Transform _container;
-    public void PopUp()
-    {
 
-    }
-    public void PopDown()
-    {
-
-    }
-    public void CreateButtons()
+    public void CreatePathogenButtons()
     {
         if (_container.childCount > 0)
             return;
 
+        List<DiseaseSO> diseaseSOs = Systems.Instance.ResourceSystem.GetDiseaseSOs();
+
         foreach(var data in diseaseSOs)
         {
-            PathogenDataHolder holder = Instantiate(_holderPrefab, _container);
-            holder.name = data.DiseaseType.ToString() + " Button";
+            PathogenDataHolder holder = Instantiate(_prefab, _container);
+            holder.name = data.PathogenType.ToString() + " Button";
             holder.Initialize(data);
         }
     }

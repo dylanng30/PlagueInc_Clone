@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Domain.Entities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,11 @@ public class CountryView : MonoBehaviour
     {
         countryName.text = country.name;
         countryImg.sprite = country.img;
+    }
+    public void Render(CountrySO data)
+    {
+        countryName.text = data.Name;
+        countryImg.sprite = data.Img;
     }
     public void AddListener(Action onClick)
     {

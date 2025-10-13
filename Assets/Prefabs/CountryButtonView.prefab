@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5143730214300362622}
   - component: {fileID: 3654910015426580470}
   - component: {fileID: 3867195518402372297}
-  - component: {fileID: 6926649863305786519}
+  - component: {fileID: 5922782535702320324}
   m_Layer: 0
   m_Name: CountryButtonView
   m_TagString: Untagged
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &6926649863305786519
+--- !u!114 &5922782535702320324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 633856378825468368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0597ef184a5d9142bc2b6974895af0f, type: 3}
+  m_Script: {fileID: 11500000, guid: dea46f1522c597b48a13b46fb99def05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _flag: {fileID: 2271477853205451995}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 6820479270088848184}
   - component: {fileID: 236128048840801066}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

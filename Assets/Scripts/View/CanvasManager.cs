@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Presentation;
 using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
     public GameObject _menuCanvas;
-    public GameObject _chooseCanvas;
-    public GameObject _playingCanvas;
-    public PathogenSelectView _pathogenSelectCanvas;
+    public PathogenSelectView PathogenSelectCanvas;
+    public ChooseCountryView ChooseCountryCanvas;
+    public PlayingView PlayingCanvas;
+    
     public NameDiseaseView _nameDiseaseView;
     public GameObject _endGameCanvas;
 
@@ -23,29 +25,29 @@ public class CanvasManager : MonoBehaviour
     //Choose
     public void ShowChooseCanvas()
     {
-        _chooseCanvas.SetActive(true);
+        ChooseCountryCanvas.gameObject.SetActive(true);
     }
     public void HideChooseCanvas()
     {
-        _chooseCanvas.SetActive(false);
+        ChooseCountryCanvas.gameObject.SetActive(false);
     }
     //Playing
     public void ShowPlayingCanvas()
     {
-        _playingCanvas.SetActive(true);
+        PlayingCanvas.gameObject.SetActive(true);
     }
     public void HidePlayingCanvas()
     {
-        _playingCanvas.SetActive(false);
+        PlayingCanvas.gameObject.SetActive(false);
     }
     //PathogenSelect
     public void ShowPathogenSelectCanvas()
     {
-        _pathogenSelectCanvas.gameObject.SetActive(true);
+        PathogenSelectCanvas.gameObject.SetActive(true);
     }
     public void HidePathogenSelectCanvas()
     {
-        _pathogenSelectCanvas.gameObject.SetActive(false);
+        PathogenSelectCanvas.gameObject.SetActive(false);
     }
     //NameDisease
     public void ShowNameDiseaseCanvas()
@@ -70,9 +72,9 @@ public class CanvasManager : MonoBehaviour
     public void HideAll()
     {
         _menuCanvas.SetActive(false);
-        _chooseCanvas.SetActive(false);
-        _playingCanvas.SetActive(false);
-        _pathogenSelectCanvas.gameObject.SetActive(false);
+        ChooseCountryCanvas.gameObject.SetActive(false);
+        PlayingCanvas.gameObject.SetActive(false);
+        PathogenSelectCanvas.gameObject.SetActive(false);
         _nameDiseaseView.gameObject.SetActive(false);
         _endGameCanvas.gameObject.SetActive(false);
     }

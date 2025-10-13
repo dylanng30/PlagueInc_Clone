@@ -13,8 +13,8 @@ public class PathogenSelectState : IState
     {
         _canvasManager.ShowPathogenSelectCanvas();
 
-        PathogenSelectView _view = _canvasManager._pathogenSelectCanvas;
-        _view.CreateButtons();
+        PathogenSelectView _view = _canvasManager.PathogenSelectCanvas;
+        _view.CreatePathogenButtons();
     }
 
     public void Execute()

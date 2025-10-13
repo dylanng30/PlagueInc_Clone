@@ -1,23 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Refactor_01.Domain.Entities;
 using UnityEngine;
 
 public class WorldSimulation : MonoBehaviour
 {
     public DiseaseInstance disease;
+    private DiseaseModel _diseaseModel;
     private int day = 0;
     public float curePercent = 0;
     private Dictionary<int,List<(Country, int)>> date_deaths = new Dictionary<int, List<(Country, int)>>();
 
-    public List<TraitData> traitDatas = new List<TraitData>();
-    public void CreateDisease(DiseaseData _diseaseData)
-    {
-        //if(disease != null)
-        //{
-        //    disease.Reset();
-        //}
-        disease = new DiseaseInstance(_diseaseData.DiseaseName, _diseaseData.Data);
-    }
+
     public void RegisterInitialCountry(Country country)
     {
         day = 1;
@@ -33,12 +28,18 @@ public class WorldSimulation : MonoBehaviour
         country.normal -= initialInfections;
         country.infected += initialInfections;
     }
-    public void ResetSimulation()
+    public void RegisterInitialCountry(CountryModel country, DiseaseModel diseaseModel)
     {
-        day = 0;
+        day = 1;
+        _diseaseModel = diseaseModel;
+        int initialInfections = 1;
         curePercent = 0;
-        date_deaths.Clear();
-        disease = null;
+        //disease.ApplyDNA(0);
+        //ObserverManager.Instance.Notify(EventType.DayChange, day);
+        //ObserverManager.Instance.Notify(EventType.CureChange, curePercent);
+        //InfectionManager.DetermineDateOfDeath(country, disease, day, initialInfections, date_deaths);
+        //country.normal -= initialInfections;
+        //country.infected += initialInfections;
     }
 
     public void TickDay(TransitController transitController)

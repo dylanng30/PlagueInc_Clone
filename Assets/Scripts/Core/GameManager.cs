@@ -54,8 +54,8 @@ public class GameManager : PersistentSingleton<GameManager>
         gameStates = new Dictionary<GameState, IState>()
         {
             { GameState.Menu, new MenuState(_canvasManager) },
-            { GameState.CountrySelect, new CountrySelectState(_canvasManager)},
             { GameState.PathogenSelect, new PathogenSelectState(_canvasManager)},
+            { GameState.CountrySelect, new CountrySelectState(_canvasManager)},
             { GameState.DiseaseName, new DiseaseNameState(_canvasManager)},
             { GameState.Playing, new PlayingState(_canvasManager, _worldSimulation, _diseaseData, _transitController)},
             { GameState.Pause, new PauseState(_canvasManager)},

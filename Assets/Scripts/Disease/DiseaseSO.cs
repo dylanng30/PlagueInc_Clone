@@ -1,20 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Enums;
 using UnityEngine;
-
-public enum DiseaseType
-{
-    Virus,
-    Bacteria,
-    Parasite,
-    Fungus
-}
 
 [CreateAssetMenu(fileName = "DiseaseSO")]
 public class DiseaseSO : ScriptableObject
 {
     public Sprite Avatar;
-    public DiseaseType DiseaseType;
+    public PathogenType PathogenType;
     public int minDays;
     public int maxDays;
     public string Description;

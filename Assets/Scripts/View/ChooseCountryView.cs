@@ -1,29 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Data.StaticData;
+using Refactor_01.Presentation;
 using UnityEngine;
 
 public class ChooseCountryView : MonoBehaviour
 {
-    [SerializeField] private CountryButtonView buttonPrefab;
-    [SerializeField] private Transform buttonContainer;
+    [SerializeField] private CountryDataHolder _prefab;
+    [SerializeField] private Transform _container;
 
-    private void OnEnable()
+    public void CreateCountryButtons()
     {
-        LoadButtons();
-    }
-
-    private void LoadButtons()
-    {
-        if (buttonContainer.childCount > 0)
+        if (_container.childCount > 0)
         {
             return;
         }
 
-        List<CountrySO> countryDatas = Systems.Instance.ResourceSystem.CountrySOs;
+        List<CountrySO> countryDatas = Systems.Instance.ResourceSystem.GetCountrySOs();
 
         foreach (var data in countryDatas)
         {
-            var button = Instantiate(buttonPrefab, buttonContainer);
+            var button = Instantiate(_prefab, _container);
             button.Render(data);
         }
     }

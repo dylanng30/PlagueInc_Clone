@@ -43,7 +43,7 @@ public class CountryManager : Singleton<CountryManager>
             return;
         }
 
-        List<CountrySO> countrySOs = Systems.Instance.ResourceSystem.CountrySOs;
+        List<CountrySO> countrySOs = Systems.Instance.ResourceSystem.GetCountrySOs();
 
         foreach (var data in countrySOs)
         {

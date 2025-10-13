@@ -39,7 +39,8 @@ public class CountryViewController : MonoBehaviour
             SnapToClosestCountry();
         }
 
-        UpdateStats(currentRect);
+        //if(currentRect != null)
+        //    UpdateStats(currentRect);
     }
 
     void SnapToClosestCountry()
@@ -78,8 +79,7 @@ public class CountryViewController : MonoBehaviour
     {
         if (rect.TryGetComponent(out CountryView view))
         {
-            var controller = CountryManager.Instance.GetController(view);
-            controller.Highlight();
+            view.Highlight();
         }
             
     }
@@ -87,8 +87,7 @@ public class CountryViewController : MonoBehaviour
     {
         if (rect.TryGetComponent(out CountryView view))
         {
-            var controller = CountryManager.Instance.GetController(view);
-            controller.Lowlight();
+            view.Lowlight();
         }
     }
     private void UpdateStats(RectTransform rect)
