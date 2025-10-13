@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Domain.Entities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class InfoCountryView : MonoBehaviour
 {
     [SerializeField] private Animator animator;
@@ -32,14 +34,11 @@ public class InfoCountryView : MonoBehaviour
         animator.Play("PopDown");
     }
 
-    public void UpdateView(Country country)
+    public void UpdateDetail(CountryModel model)
     {
-        if(country == null)
-            return;
-
-        normalBlock.numberText.text = FormatNumber(country.normal);
-        infectedBlock.numberText.text = FormatNumber(country.infected);
-        deadBlock.numberText.text = FormatNumber(country.dead);
+        normalBlock.numberText.text = FormatNumber(model.Normal);
+        infectedBlock.numberText.text = FormatNumber(model.Infected);
+        deadBlock.numberText.text = FormatNumber(model.Dead);
     }
 
     private string FormatNumber(long number, int space = 3)

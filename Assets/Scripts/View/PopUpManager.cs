@@ -38,15 +38,10 @@ public class PopUpManager : Singleton<PopUpManager>
         _turnOnEsButton.onClick.AddListener(ShowESPanel);
         _turnOffEsButton.onClick.AddListener(HideESPanel);
     }
-
-    public void UpdateInforCountryView(Country model)
-    {
-        _inforCountry.UpdateView(model);
-    }
-    public void ShowInforCountry()
+    public IEnumerator ShowInforCountry()
     {
         if (_isShowingInforCountry)
-            return;
+            yield break;
 
         _isShowingInforCountry = true;
         _inforCountry.TurnOn();

@@ -34,11 +34,13 @@ public class PlayingState : IState
         //Debug.Log("PlayingState");
         _canvasManager.ShowPlayingCanvas();
 
-        PlayingView _view = _canvasManager.PlayingCanvas;
-        _view.CreateCountryViews();
-
-
         CreateCountries();
+
+        PlayingView _view = _canvasManager.PlayingCanvas;
+        _view.CreateCountryViews(_countryRepo.GetAll());
+
+
+        
         //CreateDisease();
 
         //_worldSimulation.ResetSimulation();

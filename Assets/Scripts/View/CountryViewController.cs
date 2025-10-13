@@ -3,11 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CountryViewController : MonoBehaviour
-{
-    [Header("---COUNTRYVIEW---")]
-    public CountryView currentCountryView;
-
-    [Space(10)]
+{   
     [Header("---SETUP---")]
     public ScrollRect scrollRect;
     public RectTransform center;
@@ -18,6 +14,11 @@ public class CountryViewController : MonoBehaviour
 
     private bool isSnapping = true;
     private float threshold = 1f;
+
+
+    public CountryView CurrentCountryView { get; private set; }
+    public event Action<CountryView> OnCountrySnapped;
+    public event Action<CountryView> OnClicked;
 
 
     void Start()
@@ -38,9 +39,6 @@ public class CountryViewController : MonoBehaviour
             //Debug.Log("SnapToClosestCountry");
             SnapToClosestCountry();
         }
-
-        //if(currentRect != null)
-        //    UpdateStats(currentRect);
     }
 
     void SnapToClosestCountry()
@@ -64,12 +62,14 @@ public class CountryViewController : MonoBehaviour
         if (currentRect != null)
         {
             Hightlight(currentRect);
+            
             Vector3 difference = center.position - currentRect.position;
             content.position = Vector3.Lerp(content.position, content.position + difference, Time.deltaTime * snapSpeed);
 
             if (difference.magnitude < threshold)
             {
                 content.position += difference;
+                NotifySnapped(currentRect);
                 isSnapping = false;
             }
         }
@@ -79,6 +79,7 @@ public class CountryViewController : MonoBehaviour
     {
         if (rect.TryGetComponent(out CountryView view))
         {
+            CurrentCountryView = view;
             view.Highlight();
         }
             
@@ -90,12 +91,11 @@ public class CountryViewController : MonoBehaviour
             view.Lowlight();
         }
     }
-    private void UpdateStats(RectTransform rect)
+    private void NotifySnapped(RectTransform rect)
     {
         if (rect.TryGetComponent(out CountryView view))
         {
-            var controller = CountryManager.Instance.GetController(view);
-            PopUpManager.Instance.UpdateInforCountryView(controller.GetModel());
+            OnCountrySnapped?.Invoke(view);
         }
     }
 }

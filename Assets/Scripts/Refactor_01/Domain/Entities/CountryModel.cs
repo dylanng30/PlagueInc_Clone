@@ -7,6 +7,7 @@ namespace Refactor_01.Domain.Entities
     public class CountryModel
     {
         //Static
+        public Sprite Img {  get; set; }
         public int ID { get; private set; }
         public string Name { get; private set; }
         public long Population { get; private set; }
@@ -16,11 +17,13 @@ namespace Refactor_01.Domain.Entities
         public long Infected { get; private set; }
         public long Dead { get; private set; }
 
-        public CountryModel(int id, string name, long population)
+        public CountryModel(Sprite img, int id, string name, long population)
         {
+            Img = img;
             ID = id;
             Name = name;
             Population = population;
+            Normal = population;
         }
 
         public void AddInfected(long value)

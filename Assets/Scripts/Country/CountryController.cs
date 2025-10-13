@@ -10,7 +10,7 @@ public class CountryController
         this.model = model;
         this.view = view;
 
-        view.Render(model);
+        //view.Render(model);
     }
 
     public void Highlight()

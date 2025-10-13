@@ -9,9 +9,15 @@ using UnityEngine;
 public class ResourceSystem : MonoBehaviour
 {
     private List<CountrySO> countrySOs;
-    private List<CountryData> countryDatas;
     private List<DiseaseSO> diseaseSOs;
-    private List<TraitData> TraitDatas;
+    private List<TraitData> traitDatas;
+
+    private void Awake()
+    {
+        countrySOs = Resources.LoadAll<CountrySO>("SO/Country").ToList();
+        traitDatas = Resources.LoadAll<TraitData>("SO/Traits").ToList();
+        diseaseSOs = Resources.LoadAll<DiseaseSO>("SO/Disease").ToList();
+    }
 
     public List<CountrySO> GetCountrySOs()
     {
@@ -24,12 +30,12 @@ public class ResourceSystem : MonoBehaviour
     }
     public List<TraitData> GetTraitDatas()
     {
-        if (TraitDatas == null)
+        if (traitDatas == null)
         {
-            TraitDatas = Resources.LoadAll<TraitData>("SO/Traits").ToList();
+            traitDatas = Resources.LoadAll<TraitData>("SO/Traits").ToList();
         }
 
-        return TraitDatas;
+        return traitDatas;
     }
     public List<DiseaseSO> GetDiseaseSOs()
     {
@@ -40,15 +46,5 @@ public class ResourceSystem : MonoBehaviour
 
         return diseaseSOs;
 
-    }
-
-    public List<CountryData> GetCountryDatas()
-    {
-        if (countryDatas == null)
-        {
-            countryDatas = Resources.LoadAll<CountryData>("SO/Country").ToList();
-        }
-
-        return countryDatas;
     }
 }

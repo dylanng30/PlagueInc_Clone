@@ -15,16 +15,17 @@ public class CountryView : MonoBehaviour
     [SerializeField] private Color lowColor;
     [SerializeField] private Color textHighColor;
 
-    public void Render(Country country)
+    public int ID;
+    public CountryModel Model {  get; private set; }
+
+    public void Render(CountryModel model)
     {
-        countryName.text = country.name;
-        countryImg.sprite = country.img;
+        Model = model;
+        ID = model.ID;
+        countryName.text = model.Name;
+        countryImg.sprite = model.Img;
     }
-    public void Render(CountrySO data)
-    {
-        countryName.text = data.Name;
-        countryImg.sprite = data.Img;
-    }
+
     public void AddListener(Action onClick)
     {
         if (button == null)
