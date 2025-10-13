@@ -9,39 +9,71 @@ public class CanvasManager : MonoBehaviour
     public GameObject _playingCanvas;
     public PathogenSelectView _pathogenSelectCanvas;
     public NameDiseaseView _nameDiseaseView;
+    public GameObject _endGameCanvas;
 
+    //Menu
     public void ShowMenuCanvas()
     {
-        HideAll();
         _menuCanvas.SetActive(true);
     }
+    public void HideMenuCanvas()
+    {
+        _menuCanvas.SetActive(false);
+    }
+    //Choose
     public void ShowChooseCanvas()
     {
-        HideAll();
         _chooseCanvas.SetActive(true);
     }
+    public void HideChooseCanvas()
+    {
+        _chooseCanvas.SetActive(false);
+    }
+    //Playing
     public void ShowPlayingCanvas()
     {
-        HideAll();
         _playingCanvas.SetActive(true);
     }
+    public void HidePlayingCanvas()
+    {
+        _playingCanvas.SetActive(false);
+    }
+    //PathogenSelect
     public void ShowPathogenSelectCanvas()
     {
-        HideAll();
         _pathogenSelectCanvas.gameObject.SetActive(true);
     }
+    public void HidePathogenSelectCanvas()
+    {
+        _pathogenSelectCanvas.gameObject.SetActive(false);
+    }
+    //NameDisease
     public void ShowNameDiseaseCanvas()
     {
-        HideAll();
         _nameDiseaseView.gameObject.SetActive(true);
     }
-    private void HideAll()
+    public void HideNameDiseaseCanvas()
+    {
+        _nameDiseaseView.gameObject.SetActive(false);
+    }
+    //EndGame
+    public void ShowEndGame()
+    {
+        _endGameCanvas.gameObject.SetActive(true);
+    }
+    public void HideEndGame()
+    {
+        _endGameCanvas.gameObject.SetActive(false);
+    }
+
+    //HideAll
+    public void HideAll()
     {
         _menuCanvas.SetActive(false);
         _chooseCanvas.SetActive(false);
         _playingCanvas.SetActive(false);
-
         _pathogenSelectCanvas.gameObject.SetActive(false);
         _nameDiseaseView.gameObject.SetActive(false);
+        _endGameCanvas.gameObject.SetActive(false);
     }
 }

@@ -18,9 +18,11 @@ public class DiseaseInstance
     public List<TraitData> traits = new List<TraitData>();
 
     public EvolutionTreeModel _treeModel;
+    //private DiseaseSO _data;
     
     public DiseaseInstance(string name, DiseaseSO data)
     {
+        //_data = data;
         _type = data.DiseaseType;
         _name = name;
         _diseaseDuration = Random.Range(data.minDays, data.maxDays);
@@ -46,6 +48,7 @@ public class DiseaseInstance
     }
     public void ApplyDNA(int value)
     {
+        Debug.Log(value);
         dnaPoints += value;
         ObserverManager.Instance.Notify(EventType.DNAChange, dnaPoints);
     }

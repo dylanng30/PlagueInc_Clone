@@ -28,6 +28,15 @@ public class Country
         this.name = name;
         this.population = population;
         this.normal = population;
+        infected = 0;
+        dead = 0;
         this.img = img;
+    }
+
+    public void Reset()
+    {
+        this.normal = population;
+        this.infected = 0;
+        this.dead = 0;
     }
 }

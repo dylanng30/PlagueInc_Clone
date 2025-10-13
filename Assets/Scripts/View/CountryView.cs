@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class CountryView : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
     [SerializeField] private Image countryImg;
     [SerializeField] private TextMeshProUGUI countryName;
     [SerializeField] private Button button;

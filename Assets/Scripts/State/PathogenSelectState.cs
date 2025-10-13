@@ -24,6 +24,6 @@ public class PathogenSelectState : IState
 
     public void Exit()
     {
-
+        _canvasManager.HidePathogenSelectCanvas();
     }
 }

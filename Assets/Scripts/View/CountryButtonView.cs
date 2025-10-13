@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountyButtonView : MonoBehaviour
+public class CountryButtonView : MonoBehaviour
 {
     [SerializeField] private Image _flag;
     [SerializeField] private TextMeshProUGUI _name;

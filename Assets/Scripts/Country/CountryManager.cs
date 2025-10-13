@@ -24,6 +24,7 @@ public class CountryManager : Singleton<CountryManager>
     }
     public void RegisterCountry(CountrySO chosenCountrySO)
     {
+
         _chosenCountrySO = chosenCountrySO;
         LoadMap();
     }
@@ -32,6 +33,13 @@ public class CountryManager : Singleton<CountryManager>
     {
         if (container.childCount > 0)
         {
+            if (countries.Count > 0)
+            {
+                foreach (var country in countries)
+                {
+                    country.Reset();
+                }
+            }
             return;
         }
 

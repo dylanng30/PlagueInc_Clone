@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CountrySelectState : IState
+public class StatisticsState : IState
 {
     private CanvasManager _canvasManager;
-    public CountrySelectState(CanvasManager canvasManager)
+    public StatisticsState(CanvasManager canvasManager)
     {
         _canvasManager = canvasManager;
     }
     public void Enter()
     {
-        //Debug.Log("ChoosingState");
-        _canvasManager.ShowChooseCanvas();
+
     }
 
     public void Execute()
@@ -22,6 +21,6 @@ public class CountrySelectState : IState
 
     public void Exit()
     {
-        _canvasManager.HideChooseCanvas();
+
     }
 }

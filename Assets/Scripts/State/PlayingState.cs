@@ -25,6 +25,8 @@ public class PlayingState : IState
     {
         //Debug.Log("PlayingState");
         _canvasManager.ShowPlayingCanvas();
+
+        //_worldSimulation.ResetSimulation();
         _worldSimulation.CreateDisease(_diseaseData);
         _worldSimulation.RegisterInitialCountry(CountryManager.Instance.ChosenCountry);
     }
@@ -39,7 +41,7 @@ public class PlayingState : IState
 
     public void Exit()
     {
-
+        _canvasManager.HidePlayingCanvas();
     }
 
 }

@@ -6,6 +6,7 @@ public class EvolutionController : Singleton<EvolutionController>
     private DiseaseInstance currentDisease;
     [SerializeField] private EvolutionTreeView treeView;
     [SerializeField] private InformationTraitView informationTraitView;
+    [SerializeField] private InformationDiseaseView diseaseView;
 
     private TraitData currentSelectedTrait;
 
@@ -17,7 +18,7 @@ public class EvolutionController : Singleton<EvolutionController>
     public void RegisterDisease(DiseaseInstance disease, List<TraitData> traitDatas)
     {
         currentDisease = disease;
-        treeView.CreateTree(traitDatas, disease._treeModel);
+        treeView.CreateTree(traitDatas, disease);
         treeView.OnNodeSelected += HandleNodeSelected;
         informationTraitView.OnEvolvePressed += HandleEvolvePressed;
     }

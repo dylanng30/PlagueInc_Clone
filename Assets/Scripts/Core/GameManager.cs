@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum GameState
 {
-    Menu, CountrySelect, PathogenSelect, DiseaseName, Playing, Pause
+    Menu, CountrySelect, PathogenSelect, DiseaseName, Playing, Pause, End
 }
 public class GameManager : PersistentSingleton<GameManager>
 {    
@@ -12,7 +12,6 @@ public class GameManager : PersistentSingleton<GameManager>
     public StateManager _stateManager;
     public CanvasManager _canvasManager;
     public TransitController _transitController;
-
 
     public DiseaseData _diseaseData;
     public DiseaseSO _data;
@@ -31,7 +30,6 @@ public class GameManager : PersistentSingleton<GameManager>
     private void Start()
     {
         LoadGameState();
-        
         _stateManager.ChangeState(gameStates[GameState.Menu]);
     }
     public void ChangeState(GameState _state)
@@ -52,6 +50,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private void LoadGameState()
     {
+
         gameStates = new Dictionary<GameState, IState>()
         {
             { GameState.Menu, new MenuState(_canvasManager) },
@@ -59,7 +58,9 @@ public class GameManager : PersistentSingleton<GameManager>
             { GameState.PathogenSelect, new PathogenSelectState(_canvasManager)},
             { GameState.DiseaseName, new DiseaseNameState(_canvasManager)},
             { GameState.Playing, new PlayingState(_canvasManager, _worldSimulation, _diseaseData, _transitController)},
-            { GameState.Pause, new PauseState(_canvasManager)}
+            { GameState.Pause, new PauseState(_canvasManager)},
+            { GameState.End, new EndGameState(_canvasManager) }
         };
+
     }
 }

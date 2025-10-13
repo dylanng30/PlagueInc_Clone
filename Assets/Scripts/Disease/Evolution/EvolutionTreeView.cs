@@ -11,21 +11,38 @@ public enum ContainerType
     Ability
 }
 
+
 public class EvolutionTreeView : MonoBehaviour
 {
     public event Action<TraitData> OnNodeSelected;
 
-    [Header("---BUTTONS---")]
-    public Button informationButton;
-    public Button transmissionButton;
-    public Button symptomButton;
-    public Button abilityButton;
+    [Header("---INFORMATION DISEASE---")]
+    [SerializeField] private InformationDiseaseView _diseaseView;
 
+    [Header("---BUTTONS---")]
+    [SerializeField] private Button informationButton;
+    [SerializeField] private Image informationButtonImg;
+    [Space(5)]
+    [SerializeField] private Button transmissionButton;
+    [SerializeField] private Image transmissionButtonImg;
+    [Space(5)]
+    [SerializeField] private Button symptomButton;
+    [SerializeField] private Image symptomButtonImg;
+    [Space(5)]
+    [SerializeField] private Button abilityButton;
+    [SerializeField] private Image abilityButtonImg;
+
+    [Space(10)]
     [Header("---PANEL---")]
-    public Transform informationContainer;
-    public Transform transmissionContainer;
-    public Transform symptomContainer;
-    public Transform abilityContainer;
+    [SerializeField] private Transform informationContainer;
+    [SerializeField] private Transform transmissionContainer;
+    [SerializeField] private Transform symptomContainer;
+    [SerializeField] private Transform abilityContainer;
+
+    [Space(10)]
+    [Header("---COLOR---")]
+    [SerializeField] private Color chosenColor;
+    [SerializeField] private Color normalColor;
 
     private Dictionary<TraitData, EvolutionNodeView> nodeViews = new();
     private Dictionary<ContainerType, Transform> containers;
@@ -36,8 +53,10 @@ public class EvolutionTreeView : MonoBehaviour
         SetUpButtons();
     }
 
-    public void CreateTree(List<TraitData> nodeDatas, EvolutionTreeModel treeModel)
+    public void CreateTree(List<TraitData> nodeDatas, DiseaseInstance disease)
     {
+        _diseaseView.UpdateView(disease);
+        EvolutionTreeModel treeModel = disease._treeModel;
         foreach (var data in nodeDatas)
         {
             Transform parent = GetContainer(data._traitCategory);
@@ -82,6 +101,8 @@ public class EvolutionTreeView : MonoBehaviour
 
         if (containers.TryGetValue(type, out var targetContainer))
             targetContainer.gameObject.SetActive(true);
+
+        HighlightButton(type);
     }
 
     private void LoadContainers()
@@ -101,4 +122,29 @@ public class EvolutionTreeView : MonoBehaviour
         symptomButton.onClick.AddListener(() => ShowContainer(ContainerType.Symptom));
         abilityButton.onClick.AddListener(() => ShowContainer(ContainerType.Ability));
     }
+
+    private void HighlightButton(ContainerType type)
+    {
+        informationButtonImg.color = normalColor;
+        transmissionButtonImg.color = normalColor;
+        symptomButtonImg.color = normalColor;
+        abilityButtonImg.color = normalColor;
+
+        switch (type)
+        {
+            case ContainerType.Information:
+                informationButtonImg.color = chosenColor;
+                break;
+            case ContainerType.Transmission:
+                transmissionButtonImg.color = chosenColor;
+                break;
+            case ContainerType.Symptom:
+                symptomButtonImg.color = chosenColor;
+                break;
+            case ContainerType.Ability:
+                abilityButtonImg.color = chosenColor;
+                break;
+        }
+    }
+
 }

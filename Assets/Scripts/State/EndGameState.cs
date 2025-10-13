@@ -12,7 +12,7 @@ public class EndGameState : IState
 
     public void Enter()
     {
-
+        _canvasManager.ShowEndGame();
     }
 
     public void Execute()
@@ -22,6 +22,6 @@ public class EndGameState : IState
 
     public void Exit()
     {
-
+        _canvasManager.HideEndGame();
     }
 }

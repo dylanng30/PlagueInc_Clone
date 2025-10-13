@@ -5,7 +5,8 @@ using UnityEngine;
 public enum EventType
 {
     DayChange,
-    DNAChange
+    DNAChange,
+    CureChange,
 }
 public class ObserverManager : Singleton<ObserverManager>
 {
@@ -38,6 +39,9 @@ public class ObserverManager : Singleton<ObserverManager>
 
     public void Notify(EventType type, object data = null)
     {
+        if (!observerDics.ContainsKey(type))
+            return;
+
         foreach (var observer in observerDics[type])
         {
             observer.Notify(type, data);

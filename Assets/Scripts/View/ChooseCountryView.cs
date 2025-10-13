@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChooseCountryView : MonoBehaviour
 {
-    [SerializeField] private CountyButtonView buttonPrefab;
+    [SerializeField] private CountryButtonView buttonPrefab;
     [SerializeField] private Transform buttonContainer;
 
     private void OnEnable()

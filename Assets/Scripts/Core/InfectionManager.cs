@@ -4,6 +4,17 @@ using UnityEngine;
 
 public static class InfectionManager
 {
+    #region ---CURE---
+    public static void SimulateCure(Country country, out float newCurePercent)
+    {
+        newCurePercent = 0;
+
+        if(country.normal < country.population * 0.5f)
+        {
+            newCurePercent = 0.02f;
+        }
+    }
+    #endregion
     #region ---DNA--
     public static void SimulateDNAGain(DiseaseInstance disease, int newInfections)
     {
@@ -69,7 +80,7 @@ public static class InfectionManager
             if (targetCountry == country)
             {
                 date_listDeathsInCountry[date][i] = (targetCountry, currentDeaths + infections);
-                Debug.Log($"{country.name} xac dinh ngay {date} se co {currentDeaths + infections} ng chet");
+                //Debug.Log($"{country.name} xac dinh ngay {date} se co {currentDeaths + infections} ng chet");
                 found = true;
                 break;
             }
@@ -78,7 +89,7 @@ public static class InfectionManager
         if (!found)
         {
             date_listDeathsInCountry[date].Add((country, infections));
-            Debug.Log($"{country.name} xac dinh ngay {date} se co {infections} ng chet");
+            //Debug.Log($"{country.name} xac dinh ngay {date} se co {infections} ng chet");
         }
 
     }

@@ -12,6 +12,7 @@ public class MenuState : IState
     public void Enter()
     {
         //Debug.Log("MenuState");
+        _canvasManager.HideAll();
         _canvasManager.ShowMenuCanvas();
     }
 
@@ -22,6 +23,6 @@ public class MenuState : IState
 
     public void Exit()
     {
-
+        _canvasManager.HideMenuCanvas();
     }
 }

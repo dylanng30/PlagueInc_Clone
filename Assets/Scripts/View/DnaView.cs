@@ -12,14 +12,14 @@ public class DnaView : MonoBehaviour, IObserver
         ObserverManager.Instance.RegisterObserver(EventType.DNAChange, this);
     }
 
-    private void OnDisable()
-    {
-        ObserverManager.Instance.UnregisterObserver(EventType.DNAChange, this);
-    }
+    //private void OnDisable()
+    //{
+    //    ObserverManager.Instance.UnregisterObserver(EventType.DNAChange, this);
+    //}
 
     public void Notify(EventType type, object data = null)
     {
-        dnaText.text = "DNA: " + data.ToString();
+        dnaText.text = data.ToString();
     }
 
 }

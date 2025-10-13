@@ -21,7 +21,7 @@ public class DiseaseNameState : IState
 
     public void Exit()
     {
-
+        _canvasManager.HideNameDiseaseCanvas();
     }
 
 }
