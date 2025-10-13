@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895320775e5a44040bb5fd73c455f9e9, type: 3}
   m_Name: China
   m_EditorClassIdentifier: 
+  ID: 1
   Img: {fileID: 21300000, guid: 31ad7cbf2009ed440ad37720a1cf7390, type: 3}
   Name: CHINA
   Population: 1415313537

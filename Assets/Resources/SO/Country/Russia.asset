@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895320775e5a44040bb5fd73c455f9e9, type: 3}
   m_Name: Russia
   m_EditorClassIdentifier: 
+  ID: 2
   Img: {fileID: 21300000, guid: 61343e6f92bb53e4e8c8964c15784754, type: 3}
   Name: RUSSIA
   Population: 143913715

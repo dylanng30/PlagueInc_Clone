@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895320775e5a44040bb5fd73c455f9e9, type: 3}
   m_Name: US
   m_EditorClassIdentifier: 
+  ID: 3
   Img: {fileID: 21300000, guid: 4b45b4851db9d0847b1fd5206c168e66, type: 3}
   Name: AMERICA
   Population: 347719890
