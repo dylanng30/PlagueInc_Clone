@@ -13,7 +13,7 @@ public class TransitView : MonoBehaviour
     {
         _model = model;
 
-        _departureCountry.sprite = _model.DepartureCountry.img;
-        _arrivalCountry.sprite = _model.ArrivalCountry.img;
+        _departureCountry.sprite = _model.DepartureCountry.Img;
+        _arrivalCountry.sprite = _model.ArrivalCountry.Img;
     }
 }

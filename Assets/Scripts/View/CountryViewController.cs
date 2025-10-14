@@ -39,6 +39,9 @@ public class CountryViewController : MonoBehaviour
             //Debug.Log("SnapToClosestCountry");
             SnapToClosestCountry();
         }
+
+        if(currentRect != null)
+            NotifySnapped(currentRect);
     }
 
     void SnapToClosestCountry()
@@ -69,10 +72,10 @@ public class CountryViewController : MonoBehaviour
             if (difference.magnitude < threshold)
             {
                 content.position += difference;
-                NotifySnapped(currentRect);
                 isSnapping = false;
             }
         }
+
     }
 
     private void Hightlight(RectTransform rect)

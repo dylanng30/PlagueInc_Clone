@@ -16,6 +16,10 @@ namespace Refactor_01.Presentation
         [SerializeField] private CountryViewController _countryViewController;
         [SerializeField] private InfoCountryView _inforView;
 
+        [SerializeField] private DayView _dayView;
+        [SerializeField] private DnaView _dnaView;
+        [SerializeField] private CureView _cureView;
+
 
         private List<CountryView> countryViews = new List<CountryView>();
         private CountrySelectionPresenter _presenter;
@@ -35,6 +39,8 @@ namespace Refactor_01.Presentation
 
             _presenter = new CountrySelectionPresenter(_countryViewController, _inforView);
         }
+
+
     }
 }
 

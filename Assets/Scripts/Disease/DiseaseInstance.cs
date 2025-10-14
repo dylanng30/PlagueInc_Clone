@@ -49,7 +49,7 @@ public class DiseaseInstance
     }
     public void ApplyDNA(int value)
     {
-        Debug.Log(value);
+        //Debug.Log(value);
         dnaPoints += value;
         ObserverManager.Instance.Notify(EventType.DNAChange, dnaPoints);
     }

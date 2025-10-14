@@ -9,7 +9,7 @@ namespace Refactor_01.Domain.Entities
     {
         public string Name { get; private set; }
         public PathogenType Type { get; private set; }
-        public float LethalDuration { get; private set; }
+        public int LethalDuration { get; private set; }
         public float Infectivity { get; private set; }
         public float Lethality { get; private set; }
 
@@ -22,6 +22,8 @@ namespace Refactor_01.Domain.Entities
             Name = GameContext.DiseaseName;
             Type = GameContext.DiseaseData.PathogenType;
             LethalDuration = Random.Range(GameContext.DiseaseData.minDays, GameContext.DiseaseData.maxDays);
+            Infectivity = 1f;
+            Lethality = 1f;
             LoadTraits(savedTraits);
         }
 

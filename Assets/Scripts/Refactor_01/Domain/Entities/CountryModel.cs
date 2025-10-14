@@ -11,6 +11,7 @@ namespace Refactor_01.Domain.Entities
         public int ID { get; private set; }
         public string Name { get; private set; }
         public long Population { get; private set; }
+        public float HealthcareLevel { get; private set; }
 
         //Dynamic
         public long Normal { get; private set; }

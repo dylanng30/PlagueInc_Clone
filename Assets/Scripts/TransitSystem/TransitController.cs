@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Domain.Entities;
 using UnityEngine;
 
 public class TransitController : MonoBehaviour
@@ -8,7 +9,7 @@ public class TransitController : MonoBehaviour
     public TransitNotification _transitNoti;
     private Dictionary<int, List<TransitModel>> transits = new Dictionary<int, List<TransitModel>>();
 
-    public void CreateTransit(List<Country> openCountries, int day)
+    public void CreateTransit(List<CountryModel> openCountries, int day)
     {
         List<TransitModel> transitModels = new List<TransitModel>();
 

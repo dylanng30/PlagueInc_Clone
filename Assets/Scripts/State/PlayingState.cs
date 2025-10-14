@@ -38,14 +38,9 @@ public class PlayingState : IState
 
         PlayingView _view = _canvasManager.PlayingCanvas;
         _view.CreateCountryViews(_countryRepo.GetAll());
-
-
         
-        //CreateDisease();
-
-        //_worldSimulation.ResetSimulation();
-        //_worldSimulation.CreateDisease(_diseaseData);
-        //_worldSimulation.RegisterInitialCountry(GameContext.InitialCountryId);
+        CreateDisease();
+        InitialWorld();
     }
 
     public void Execute()
@@ -84,7 +79,7 @@ public class PlayingState : IState
     private void InitialWorld()
     {
         CountryModel country = _countryRepo.GetCountry(GameContext.InitialCountryId);
-        _worldSimulation.RegisterInitialCountry(country, _disease);
+        _worldSimulation.RegisterInitialCountry(country, _disease, _countryRepo);
     }
 
 }

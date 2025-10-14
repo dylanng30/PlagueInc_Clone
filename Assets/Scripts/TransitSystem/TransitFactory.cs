@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Domain.Entities;
 using UnityEngine;
 
 public class TransitFactory
 {
-    public bool TryCreate(List<Country> openCountries,out TransitModel newTransit)
+    public bool TryCreate(List<CountryModel> openCountries,out TransitModel newTransit)
     {
         newTransit = null;
         
@@ -15,7 +16,7 @@ public class TransitFactory
 
         int _departureIndex = 0;
         int _arrivalIndex = 0;
-        Country _departureCountry, _arrivalCountry;
+        CountryModel _departureCountry, _arrivalCountry;
 
         _departureIndex = Random.Range(0, openCountries.Count);
         _departureCountry = openCountries[_departureIndex];
@@ -26,8 +27,10 @@ public class TransitFactory
             _arrivalCountry = openCountries[_arrivalIndex];
         } while (_arrivalIndex == _departureIndex);
 
-        long _infectedPassenger = Mathf.FloorToInt(_departureCountry.infected * 0.0001f);
-        _infectedPassenger = _infectedPassenger < 1 ? 0 : _infectedPassenger;
+        long _infectedPassenger = Mathf.FloorToInt(_departureCountry.Infected * 0.0001f);
+
+        _infectedPassenger = (long) Mathf.Clamp(_infectedPassenger, 0, _departureCountry.Normal);
+
 
         newTransit = new TransitModel()
         {
