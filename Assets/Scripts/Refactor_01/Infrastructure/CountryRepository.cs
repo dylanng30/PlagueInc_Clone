@@ -8,7 +8,6 @@ namespace Refactor_01.Infrastructure
     public class CountryRepository
     {
         private Dictionary<int, CountryModel> _countries = new Dictionary<int, CountryModel>();
-        private List<CountryModel> allCountries;
 
         public void Load(List<CountryModel> countries)
         {
@@ -21,13 +20,10 @@ namespace Refactor_01.Infrastructure
 
         public List<CountryModel> GetAll()
         {
-            if (allCountries == null || allCountries.Count == 0)
+            List<CountryModel> allCountries = new List<CountryModel>();
+            foreach (CountryModel country in _countries.Values)
             {
-                allCountries = new List<CountryModel>();
-                foreach (CountryModel country in _countries.Values)
-                {
-                    allCountries.Add(country);
-                }
+                allCountries.Add(country);
             }
 
             return allCountries;

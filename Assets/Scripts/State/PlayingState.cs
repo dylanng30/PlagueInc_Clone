@@ -10,29 +10,27 @@ public class PlayingState : IState
 {
     private CanvasManager _canvasManager;
     private WorldSimulation _worldSimulation;
-    private DiseaseData _diseaseData;
     private TransitController _transitController;
 
-
     private CountryRepository _countryRepo;
+    private CountryFactory _factory;
     private DiseaseModel _disease;
 
     public PlayingState(
         CanvasManager canvasManager,
         WorldSimulation worldSimulation,
-        DiseaseData diseaseData,
         TransitController transitController
     )
     {
         _canvasManager = canvasManager;
         _worldSimulation = worldSimulation;
-        _diseaseData = diseaseData;
         _transitController = transitController;
     }
     public void Enter()
     {
         //Debug.Log("PlayingState");
         _canvasManager.ShowPlayingCanvas();
+        _transitController.Reset();
 
         CreateCountries();
 
@@ -47,7 +45,7 @@ public class PlayingState : IState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _worldSimulation.TickDay(_transitController);
+            _worldSimulation.TickDay();
         }
     }
 
@@ -58,15 +56,15 @@ public class PlayingState : IState
 
     private void CreateCountries()
     {
-        _countryRepo = new CountryRepository();
-        CountryFactory factory = new CountryFactory();
+        _countryRepo = _countryRepo == null ? new CountryRepository() : _countryRepo;
+        _factory = _factory == null ? new CountryFactory() : _factory;
 
         List<CountrySO> countryDatas = Systems.Instance.ResourceSystem.GetCountrySOs();
         List<CountryModel> countries = new List<CountryModel>();
 
         foreach (CountrySO data in countryDatas)
         {
-            var country = factory.Create(data);
+            var country = _factory.Create(data);
             countries.Add(country);
         }
 
@@ -75,11 +73,12 @@ public class PlayingState : IState
     private void CreateDisease()
     {
         _disease = new DiseaseModel();
+        EvolutionController.Instance.RegisterDisease(_disease);
     }
     private void InitialWorld()
     {
         CountryModel country = _countryRepo.GetCountry(GameContext.InitialCountryId);
-        _worldSimulation.RegisterInitialCountry(country, _disease, _countryRepo);
+        _worldSimulation.RegisterInitialCountry(country, _disease, _countryRepo, _transitController);
     }
 
 }

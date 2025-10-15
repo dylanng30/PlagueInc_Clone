@@ -7,10 +7,22 @@ public class EvolutionTreeModel
 {
     public Dictionary<TraitData, EvolutionNodeModel> nodes = new();
 
-    public void Initialize(List<TraitData> nodeDatas)
+    public EvolutionTreeModel(List<TraitData> nodeDatasOfDisease)
     {
-        foreach (var nodeData in nodeDatas)
-            nodes[nodeData] = new EvolutionNodeModel(nodeData);
+        nodes.Clear();
+
+        List<TraitData> datas = Systems.Instance.ResourceSystem.GetTraitDatas();
+
+        foreach (var data in datas)
+        {
+            nodes.Add(data, new EvolutionNodeModel(data));
+        }
+
+        foreach (var data in nodeDatasOfDisease)
+        {
+            if (nodes.ContainsKey(data))
+                Evolve(data);
+        }
     }
 
     public bool CanEvolve(TraitData nodeData, int dnaPoints)

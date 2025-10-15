@@ -29,6 +29,7 @@ namespace Refactor_01.Domain.Entities
 
         public void ApplyDNA(int value)
         {
+            Debug.Log("Apply DNA: " + value);
             DNA_Points += value;
         }
         public void ApplyTrait(TraitData data)
@@ -43,6 +44,7 @@ namespace Refactor_01.Domain.Entities
         {
             if(savedTraits == null)
             {
+                Debug.Log("Create new list traits");
                 Traits = new List<TraitData>();
                 return;
             }

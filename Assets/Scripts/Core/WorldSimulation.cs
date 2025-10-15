@@ -10,32 +10,37 @@ public class WorldSimulation : MonoBehaviour
     //public DiseaseInstance disease;
     private DiseaseModel _diseaseModel;
     private CountryRepository _countryRepo;
+    private TransitController _transitController;
     private int day = 0;
     public float curePercent = 0;
     private Dictionary<int,List<(CountryModel, int)>> date_deaths = new Dictionary<int, List<(CountryModel, int)>>();
 
-    public void RegisterInitialCountry(CountryModel country, DiseaseModel diseaseModel, CountryRepository countryRepo)
+    public void RegisterInitialCountry(CountryModel country, DiseaseModel diseaseModel, CountryRepository countryRepo, TransitController transitController)
     {
         day = 1;
         _diseaseModel = diseaseModel;
         _countryRepo = countryRepo;
+        _transitController = transitController;
+
         int initialInfections = 1;
         curePercent = 0;
         _diseaseModel.ApplyDNA(0);
-        ObserverManager.Instance.Notify(EventType.DayChange, day);
-        ObserverManager.Instance.Notify(EventType.CureChange, curePercent);
+
         InfectionManager.DetermineDateOfDeath(country, _diseaseModel, day, initialInfections, date_deaths);
         country.AddInfected(initialInfections);
+
+        Notify();
     }
 
-    public void TickDay(TransitController transitController)
+    public void TickDay()
     {
         day++;
-        ObserverManager.Instance.Notify(EventType.DayChange, day);
+        _transitController.CreateTransit(_countryRepo.GetAll(), day);
+        SimulateCrossCountryInfections(_transitController.GetTransitModelsWithDay(day));
         SimulateWithinCountry();
-        transitController.CreateTransit(_countryRepo.GetAll(), day);
-        SimulateCrossCountryInfections(transitController.GetTransitModelsWithDay(day));
         SimulateCure();
+
+        Notify();
     }
 
     //Mô phỏng lây nhiễm trong nước
@@ -54,7 +59,7 @@ public class WorldSimulation : MonoBehaviour
             InfectionManager.DetermineDateOfDeath(country, _diseaseModel, day, newInfections, date_deaths);
             InfectionManager.SimualateWithinCountryDeaths(country, day, date_deaths);
             InfectionManager.SimulateDNAGain(_diseaseModel, newInfections);
-            
+        
         }
     }
 
@@ -69,7 +74,6 @@ public class WorldSimulation : MonoBehaviour
             InfectionManager.SimulateInfectedTransits(model, out int newInfections, out CountryModel arrivalCountry);
             //Debug.Log($"{model.InfectedPassenger} toi {model.ArrivalCountry}");
             InfectionManager.DetermineDateOfDeath(arrivalCountry, _diseaseModel, day, newInfections, date_deaths);
-            InfectionManager.SimulateDNAGain(_diseaseModel, newInfections);
         }
     }
     //
@@ -87,5 +91,12 @@ public class WorldSimulation : MonoBehaviour
             GameManager.Instance.ChangeState(GameState.End);
         }
 
+    }
+
+    private void Notify()
+    {
+        ObserverManager.Instance.Notify(EventType.DayChange, day);
+        ObserverManager.Instance.Notify(EventType.DNAChange, _diseaseModel.DNA_Points);
+        ObserverManager.Instance.Notify(EventType.CureChange, curePercent);
     }
 }

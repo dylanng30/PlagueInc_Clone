@@ -1,24 +1,27 @@
 ﻿using System.Collections.Generic;
+using Refactor_01.Domain.Entities;
 using UnityEngine;
 
 public class EvolutionController : Singleton<EvolutionController>
 {
-    private DiseaseInstance currentDisease;
+    private DiseaseModel currentDisease;
     [SerializeField] private EvolutionTreeView treeView;
     [SerializeField] private InformationTraitView informationTraitView;
     [SerializeField] private InformationDiseaseView diseaseView;
 
     private TraitData currentSelectedTrait;
+    private EvolutionTreeModel treeModel;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public void RegisterDisease(DiseaseInstance disease, List<TraitData> traitDatas)
+    public void RegisterDisease(DiseaseModel disease)
     {
         currentDisease = disease;
-        treeView.CreateTree(traitDatas, disease);
+        treeModel = new EvolutionTreeModel(currentDisease.Traits);
+        treeView.CreateTree(currentDisease, treeModel);
         treeView.OnNodeSelected += HandleNodeSelected;
         informationTraitView.OnEvolvePressed += HandleEvolvePressed;
     }
@@ -26,7 +29,7 @@ public class EvolutionController : Singleton<EvolutionController>
     private void HandleNodeSelected(TraitData data)
     {
         currentSelectedTrait = data;
-        var model = currentDisease._treeModel.nodes[data];
+        var model = treeModel.nodes[data];
         UpdateInformationTraitView(model);
     }
 
@@ -35,12 +38,12 @@ public class EvolutionController : Singleton<EvolutionController>
         if (currentSelectedTrait == null)
             return;
 
-        var model = currentDisease._treeModel.nodes[currentSelectedTrait];
-        if (!currentDisease._treeModel.CanEvolve(currentSelectedTrait, currentDisease.dnaPoints))
+        var model = treeModel.nodes[currentSelectedTrait];
+        if (!treeModel.CanEvolve(currentSelectedTrait, currentDisease.DNA_Points))
             return;
 
         currentDisease.ApplyDNA(-model.data._dnaCost);
-        currentDisease._treeModel.Evolve(currentSelectedTrait);
+        treeModel.Evolve(currentSelectedTrait);
         currentDisease.ApplyTrait(model.data);
 
         treeView.RefreshAll();

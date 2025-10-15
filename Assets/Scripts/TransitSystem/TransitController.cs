@@ -23,8 +23,15 @@ public class TransitController : MonoBehaviour
             }
         }
 
-        transits.Add(day, transitModels);
-
+        if (transits.ContainsKey(day))
+        {
+            transits[day] = transitModels;
+        }
+        else
+        {
+            transits.Add(day, transitModels);
+        }
+            
         _transitNoti.Notify(transitModels);
     }
 
@@ -38,5 +45,10 @@ public class TransitController : MonoBehaviour
         }
 
         return list;
+    }
+
+    public void Reset()
+    {
+        transits.Clear();
     }
 }

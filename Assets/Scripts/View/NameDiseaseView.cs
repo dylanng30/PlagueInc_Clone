@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Refactor_01.Domain.Entities;
 
 public class NameDiseaseView : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class NameDiseaseView : MonoBehaviour
     }
     private void Play()
     {
-        GameManager.Instance.RegisterNameForDisease(_nameInput.text);
+        GameContext.DiseaseName = _nameInput.text;
         GameManager.Instance.ChangeState(GameState.Playing);
     }
     private void NameDisease()

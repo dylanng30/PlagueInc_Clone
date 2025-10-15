@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Refactor_01.Domain.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 public enum ContainerType
@@ -52,12 +53,9 @@ public class EvolutionTreeView : MonoBehaviour
         LoadContainers();
         SetUpButtons();
     }
-
-    public void CreateTree(List<TraitData> nodeDatas, DiseaseInstance disease)
+    public void CreateTree(DiseaseModel disease,EvolutionTreeModel treeModel)
     {
-        _diseaseView.UpdateView(disease);
-        EvolutionTreeModel treeModel = disease._treeModel;
-        foreach (var data in nodeDatas)
+        foreach (var data in treeModel.nodes.Keys)
         {
             Transform parent = GetContainer(data._traitCategory);
             foreach (Transform child in parent)
@@ -73,9 +71,36 @@ public class EvolutionTreeView : MonoBehaviour
 
                 nodeViews[data] = nodeView;
                 nodeView.OnNodeClicked += () => OnNodeSelected?.Invoke(data);
-            }            
+            }
         }
     }
+
+    //public void CreateTree(DiseaseModel disease)
+    //{
+    //    _diseaseView.UpdateView(disease);
+    //    //EvolutionTreeModel treeModel = new EvolutionTreeModel(); //disease._treeModel;
+
+    //    List<TraitData> nodeDatas = Systems.Instance.ResourceSystem.GetTraitDatas();
+
+    //    foreach (var data in nodeDatas)
+    //    {
+    //        Transform parent = GetContainer(data._traitCategory);
+    //        foreach (Transform child in parent)
+    //        {
+    //            EvolutionNodeView nodeView = child.GetComponent<EvolutionNodeView>();
+    //            if (nodeView == null)
+    //                continue;
+
+    //            EvolutionNodeModel nodeModel = treeModel.nodes[data];
+
+    //            if (!nodeView.CanAssign(nodeModel))
+    //                continue;
+
+    //            nodeViews[data] = nodeView;
+    //            nodeView.OnNodeClicked += () => OnNodeSelected?.Invoke(data);
+    //        }            
+    //    }
+    //}
 
     private Transform GetContainer(TraitCategory type)
     {

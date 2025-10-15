@@ -550,11 +550,9 @@ MonoBehaviour:
   _stateManager: {fileID: 1222425176}
   _canvasManager: {fileID: 290768072}
   _transitController: {fileID: 2105497652}
-  _data: {fileID: 0}
-  _name: 
-  _diseaseInstance:
-    dnaPoints: 0
-    traits: []
+  traitDatas:
+  - {fileID: 11400000, guid: 7f7dd4d94412e4343a10fc63a9d9d9a8, type: 2}
+  - {fileID: 11400000, guid: a3ad26d6b23227a4ab00f1abd1f12046, type: 2}
 --- !u!4 &26237200
 Transform:
   m_ObjectHideFlags: 0
@@ -4558,9 +4556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55d25a2f80031d4996871c4bb9d3793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disease:
-    dnaPoints: 0
-    traits: []
   curePercent: 0
 --- !u!4 &419910157
 Transform:
@@ -10521,6 +10516,9 @@ MonoBehaviour:
   _container: {fileID: 1726566553}
   _countryViewController: {fileID: 1775132084}
   _inforView: {fileID: 555824774}
+  _dayView: {fileID: 0}
+  _dnaView: {fileID: 0}
+  _cureView: {fileID: 0}
 --- !u!1 &1082117576
 GameObject:
   m_ObjectHideFlags: 0
@@ -13125,7 +13123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeView: {fileID: 322352820}
   informationTraitView: {fileID: 1675659240}
-  diseaseView: {fileID: 0}
+  diseaseView: {fileID: 1729867877}
 --- !u!1 &1429684838
 GameObject:
   m_ObjectHideFlags: 0

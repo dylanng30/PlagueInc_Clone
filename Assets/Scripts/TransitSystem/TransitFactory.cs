@@ -29,7 +29,7 @@ public class TransitFactory
 
         long _infectedPassenger = Mathf.FloorToInt(_departureCountry.Infected * 0.0001f);
 
-        _infectedPassenger = (long) Mathf.Clamp(_infectedPassenger, 0, _departureCountry.Normal);
+        _infectedPassenger = (long) Mathf.Clamp(_infectedPassenger, 0, _arrivalCountry.Normal);
 
 
         newTransit = new TransitModel()

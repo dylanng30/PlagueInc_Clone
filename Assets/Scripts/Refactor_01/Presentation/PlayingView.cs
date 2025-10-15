@@ -25,8 +25,12 @@ namespace Refactor_01.Presentation
         private CountrySelectionPresenter _presenter;
         public void CreateCountryViews(List<CountryModel> coutries)
         {
-            if (_container.childCount > 0)
+            if (_container.childCount > 0 || countryViews.Count > 0)
             {
+                for(int i = 0; i < coutries.Count; i++)
+                {
+                    countryViews[i].Render(coutries[i]);
+                }
                 return;
             }
 
@@ -39,6 +43,7 @@ namespace Refactor_01.Presentation
 
             _presenter = new CountrySelectionPresenter(_countryViewController, _inforView);
         }
+
 
 
     }

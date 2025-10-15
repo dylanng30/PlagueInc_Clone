@@ -18,7 +18,7 @@ public class CureView : MonoBehaviour, IObserver
 
     public void Notify(EventType type, object data = null)
     {
-        Debug.Log("Cure");
+       // Debug.Log("Cure");
         if (data is float fillValue)
         {
             cureImage.fillAmount = fillValue;
