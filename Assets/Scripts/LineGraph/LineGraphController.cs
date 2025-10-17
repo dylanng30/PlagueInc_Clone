@@ -18,9 +18,21 @@ public class LineGraphController : MonoBehaviour
     [Space(10)]
     [Header("---BUTTONS---")]
     [SerializeField] private Button allButton;
+    [SerializeField] private Image allButtonImg;
+    [Space(5)]
     [SerializeField] private Button normalButton;
+    [SerializeField] private Image normalButtonImg;
+    [Space(5)]
     [SerializeField] private Button infectedButton;
+    [SerializeField] private Image infectedButtonImg;
+    [Space(5)]
     [SerializeField] private Button deadButton;
+    [SerializeField] private Image deadButtonImg;
+
+    [Space(10)]
+    [Header("---COLOR---")]
+    [SerializeField] private Color chosenColor;
+    [SerializeField] private Color normalColor;
 
     [Space(10)]
     [Header("---PANELS")]
@@ -164,12 +176,33 @@ public class LineGraphController : MonoBehaviour
         {
             graphMap[humanType].renderer.gameObject.SetActive(true);
         }
+
+        switch (humanType)
+        {
+            case HumanType.All:
+                allButtonImg.color = chosenColor;
+                break;
+            case HumanType.Normal:
+                normalButtonImg.color = chosenColor;
+                break;
+            case HumanType.Infected:
+                infectedButtonImg.color = chosenColor;
+                break;
+            case HumanType.Dead:
+                deadButtonImg.color = chosenColor;
+                break;
+        }
     }
 
     private void HideAllGraphs()
     {
         foreach (var graph in graphMap.Values)
             graph.renderer.gameObject.SetActive(false);
+
+        allButtonImg.color = normalColor;
+        normalButtonImg.color = normalColor;
+        infectedButtonImg.color = normalColor;
+        deadButtonImg.color = normalColor;
     }
     #endregion
 }

@@ -23,7 +23,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private void Start()
     {
         LoadGameState();
-        _stateManager.ChangeState(gameStates[GameState.Menu]);
+        //_stateManager.ChangeState(gameStates[GameState.Menu]);
     }
     public void ChangeState(GameState _state)
     {
